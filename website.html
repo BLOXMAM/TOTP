@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOTP Authenticator</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #151d30;
+            --accent-color: #3b82f6;
+            --text-color: #f8fafc;
+            --text-muted: #64748b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --input-bg: #0b0f19;
+            --border-color: #22314d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 35px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            width: 100%;
+            max-width: 460px;
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background-color: var(--input-bg);
+            color: white;
+            font-size: 15px;
+            text-align: center;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-danger {
+            background-color: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid var(--border-color);
+        }
+        .btn-danger:hover {
+            background-color: #b91c1c;
+            color: white;
+            border-color: #b91c1c;
+        }
+
+        .account-list {
+            margin-top: 25px;
+            max-height: 290px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        /* تخصيص شريط التمرير Scrollbar */
+        .account-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .account-list::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 10px;
+        }
+
+        .account-card {
+            background-color: var(--input-bg);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s;
+        }
+
+        .account-card:hover {
+            border-color: #334155;
+        }
+
+        .account-info {
+            flex-grow: 1;
+        }
+
+        .account-name {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .otp-code {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--success-color);
+            letter-spacing: 1px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        /* زر الأيقونات الدائري */
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1e293b;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        /* تصميم أيقونة النسخ بالـ CSS */
+        .icon-copy::before {
+            content: '';
+            width: 12px;
+            height: 14px;
+            border: 2px solid #94a3b8;
+            border-radius: 2px;
+            position: absolute;
+            transform: translate(-2px, -2px);
+            background: #1e293b;
+        }
+        .icon-copy::after {
+            content: '';
+            width: 12px;
+            height: 14px;
+            border: 2px solid #94a3b8;
+            border-radius: 2px;
+            transform: translate(2px, 2px);
+        }
+
+        .icon-btn:hover .icon-copy::before,
+        .icon-btn:hover .icon-copy::after {
+            border-color: white;
+        }
+
+        .icon-btn.copied {
+            background-color: var(--success-color) !important;
+            border-color: var(--success-color);
+        }
+        .icon-btn.copied .icon-copy::before,
+        .icon-btn.copied .icon-copy::after {
+            display: none;
+        }
+        .icon-btn.copied::before {
+            content: '✓';
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* تصميم أيقونة سلة المهملات بالـ CSS */
+        .icon-delete {
+            position: relative;
+            width: 14px;
+            height: 16px;
+            border: 2px solid #ef4444;
+            border-top: 0;
+            border-radius: 0 0 2px 2px;
+            margin-top: 3px;
+        }
+        .icon-delete::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            width: 16px;
+            height: 2px;
+            background-color: #ef4444;
+        }
+        .icon-delete::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 2px;
+            width: 6px;
+            height: 2px;
+            border: 2px solid #ef4444;
+            border-bottom: 0;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .icon-btn-delete:hover {
+            background-color: #7f1d1d;
+            border-color: #991b1b;
+        }
+        .icon-btn-delete:hover .icon-delete,
+        .icon-btn-delete:hover .icon-delete::before,
+        .icon-btn-delete:hover .icon-delete::after {
+            border-color: #fca5a5;
+            background-color: #fca5a5;
+        }
+        .icon-btn-delete:hover .icon-delete {
+            background-color: transparent;
+        }
+
+        .timer-container {
+            height: 4px;
+            width: 100%;
+            background-color: var(--border-color);
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .timer-bar {
+            height: 100%;
+            background-color: var(--success-color);
+            width: 100%;
+            transition: width 0.2s linear;
+        }
+
+        .system-footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="pin-screen" class="container hidden">
+        <h2>Enter Access PIN</h2>
+        <p style="color: #94a3b8; text-align: center; margin-bottom: 25px; font-size: 14px; line-height: 1.5;">Please provide the correct PIN to unlock the Authenticator vault.</p>
+        <div class="form-group">
+            <input type="password" id="input-pin" placeholder="••••">
+        </div>
+        <button onclick="verifyPin()">Unlock Vault</button>
+    </div>
+
+    <div id="main-screen" class="container hidden">
+        <h2>TOTP Authenticator</h2>
+        
+        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 25px; margin-bottom: 20px;">
+            <div class="form-group">
+                <label>Account Name</label>
+                <input type="text" id="acc-name" placeholder="e.g., Google:admin@gmail.com" style="text-align: left;">
+            </div>
+            <div class="form-group">
+                <label>Secret Key</label>
+                <input type="text" id="acc-secret" placeholder="Enter Base32 Secret" style="text-align: left; font-family: monospace; text-transform: uppercase; letter-spacing: 0.5px;">
+            </div>
+            <button onclick="addAccount()">Add Account</button>
+        </div>
+
+        <div class="timer-container">
+            <div id="timer-bar" class="timer-bar"></div>
+        </div>
+
+        <div class="account-list" id="account-list"></div>
+
+        <div class="system-footer">
+            <button class="btn-danger" onclick="clearAllStorage()">Clear All LocalStorage</button>
+        </div>
+    </div>
+
+    <script>
+        // --- HARDCODED SECURITY CONFIGURATION ---
+        const MASTER_PIN = "1234"; 
+
+        // --- Core TOTP & Base32 Logic ---
+        const Base32 = {
+            charSet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
+            decode(base32) {
+                base32 = base32.toUpperCase().replace(/=+$/, '').replace(/\s+/g, '');
+                let bits = "";
+                for (let i = 0; i < base32.length; i++) {
+                    let val = this.charSet.indexOf(base32.charAt(i));
+                    if (val === -1) continue;
+                    bits += val.toString(2).padStart(5, '0');
+                }
+                let bytes = [];
+                for (let i = 0; i + 8 <= bits.length; i += 8) {
+                    bytes.push(parseInt(bits.substr(i, 8), 2));
+                }
+                return new Uint8Array(bytes);
+            }
+        };
+
+        async function generateTOTP(secretHex) {
+            try {
+                const key = Base32.decode(secretHex);
+                if (key.length === 0) return "INVALID";
+
+                const epoch = Math.floor(Date.now() / 1000);
+                const time = Math.floor(epoch / 30);
+                
+                const timeBuffer = new ArrayBuffer(8);
+                const view = new DataView(timeBuffer);
+                view.setUint32(4, time & 0xffffffff);
+                view.setUint32(0, Math.floor(time / 0x100000000));
+
+                const cryptoKey = await crypto.subtle.importKey(
+                    "raw", key, { name: "HMAC", hash: { name: "SHA-1" } }, false, ["sign"]
+                );
+                const hmacResult = await crypto.subtle.sign("HMAC", cryptoKey, timeBuffer);
+                const hmac = new Uint8Array(hmacResult);
+
+                const offset = hmac[hmac.length - 1] & 0xf;
+                const code = ((hmac[offset] & 0x7f) << 24) |
+                             ((hmac[offset + 1] & 0xff) << 16) |
+                             ((hmac[offset + 2] & 0xff) << 8) |
+                             (hmac[offset + 3] & 0xff);
+
+                let otp = (code % 1000000).toString().padStart(6, '0');
+                return otp.substring(0, 3) + " " + otp.substring(3, 6);
+            } catch (e) {
+                return "ERROR";
+            }
+        }
+
+        // --- Auth & Access Management ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const isUnlocked = localStorage.getItem("vault_unlocked");
+            if (isUnlocked === "true") {
+                showMainScreen();
+            } else {
+                document.getElementById("pin-screen").classList.remove("hidden");
+            }
+        });
+
+        function verifyPin() {
+            const inputPin = document.getElementById("input-pin").value.trim();
+            if (inputPin === MASTER_PIN) {
+                localStorage.setItem("vault_unlocked", "true");
+                document.getElementById("pin-screen").classList.add("hidden");
+                showMainScreen();
+            } else {
+                alert("Incorrect PIN code! Access Denied.");
+                document.getElementById("input-pin").value = "";
+            }
+        }
+
+        function showMainScreen() {
+            document.getElementById("main-screen").classList.remove("hidden");
+            renderAccounts();
+            setInterval(updateTotpCodes, 1000);
+        }
+
+        function getStoredAccounts() {
+            const accounts = localStorage.getItem("totp_accounts");
+            return accounts ? JSON.parse(accounts) : [];
+        }
+
+        function addAccount() {
+            const name = document.getElementById("acc-name").value.trim();
+            const secret = document.getElementById("acc-secret").value.trim();
+
+            if (!name || !secret) {
+                alert("Please complete all fields.");
+                return;
+            }
+
+            const accounts = getStoredAccounts();
+            accounts.push({ name: name, secret: secret });
+            localStorage.setItem("totp_accounts", JSON.stringify(accounts));
+
+            document.getElementById("acc-name").value = "";
+            document.getElementById("acc-secret").value = "";
+            renderAccounts();
+        }
+
+        function deleteAccount(index) {
+            if (confirm("Are you sure you want to delete this account?")) {
+                const accounts = getStoredAccounts();
+                accounts.splice(index, 1);
+                localStorage.setItem("totp_accounts", JSON.stringify(accounts));
+                renderAccounts();
+            }
+        }
+
+        function clearAllStorage() {
+            if (confirm("CRITICAL WARNING: This will permanently delete all stored tokens and lock the vault. Proceed?")) {
+                localStorage.clear();
+                window.location.reload();
+            }
+        }
+
+        async function renderAccounts() {
+            const container = document.getElementById("account-list");
+            container.innerHTML = "";
+            const accounts = getStoredAccounts();
+
+            if (accounts.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-size:14px; margin-top:20px;">No accounts added yet.</p>`;
+                return;
+            }
+
+            for (let i = 0; i < accounts.length; i++) {
+                const acc = accounts[i];
+                const code = await generateTOTP(acc.secret);
+                
+                const card = document.createElement("div");
+                card.className = "account-card";
+                card.innerHTML = `
+                    <div class="account-info">
+                        <div class="account-name">${escapeHtml(acc.name)}</div>
+                        <div class="otp-code" id="code-${i}">${code}</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="icon-btn" onclick="copyCode(this, '${i}')" title="Copy Code"><div class="icon-copy"></div></button>
+                        <button class="icon-btn icon-btn-delete" onclick="deleteAccount(${i})" title="Delete Account"><div class="icon-delete"></div></button>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        }
+
+        async function updateTotpCodes() {
+            const accounts = getStoredAccounts();
+            const epoch = Math.floor(Date.now() / 1000);
+            const timeLeft = 30 - (epoch % 30);
+            
+            const percentage = (timeLeft / 30) * 100;
+            const timerBar = document.getElementById("timer-bar");
+            if (timerBar) timerBar.style.width = percentage + "%";
+
+            for (let i = 0; i < accounts.length; i++) {
+                const codeElem = document.getElementById(`code-${i}`);
+                if (codeElem) {
+                    const code = await generateTOTP(accounts[i].secret);
+                    codeElem.innerText = code;
+                }
+            }
+        }
+
+        function copyCode(button, index) {
+            const codeElem = document.getElementById(`code-${index}`);
+            if (!codeElem) return;
+            
+            const cleanCode = codeElem.innerText.replace(/\s+/g, '');
+            navigator.clipboard.writeText(cleanCode).then(() => {
+                button.classList.add("copied");
+                setTimeout(() => {
+                    button.classList.remove("copied");
+                }, 1500);
+            }).catch(err => {
+                alert("Failed to copy code.");
+            });
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
