@@ -37,6 +37,7 @@
             --history-item-bg: #f8fafc;
             --student-bar-bg: #eaeded;
             --group-label-color: #16a085;
+            --today-card-bg: #e67e22;
         }
 
         [data-theme="dark"] {
@@ -52,6 +53,7 @@
             --student-bar-bg: #1e293b;
             --group-label-color: #2980b9;
             --txt-c: #ffffff;
+            --today-card-bg: #d35400;
         }
 
         body {
@@ -111,6 +113,13 @@
         [data-theme="dark"] .btn { color: #0f172a; }
         .btn:hover { opacity: 0.9; transform: translateY(-1px); }
         .btn-secondary { background-color: #64748b; color: white !important; }
+        .btn-secondary.active {
+            background-color: var(--accent-color) !important;
+            color: white !important;
+        }
+        [data-theme="dark"] .btn-secondary.active {
+            color: #0f172a !important;
+        }
         .btn-danger { background-color: var(--danger-color); color: white !important; }
         .btn-info { background-color: #2980b9; color: white !important; }
         .btn-warning { background-color: var(--warning-color); color: white !important; }
@@ -255,12 +264,10 @@
             color: #0f172a;
         }
 
-        /* تنسيق كرت تاريخ اليوم باللون البرتقالي */
         .rating-card.today-card {
-            background-color: #e67e22 !important;
-            color: #ffffff !important;
-            border-color: #d35400 !important;
-            box-shadow: 0 0 8px rgba(230, 126, 34, 0.4);
+            background: var(--today-card-bg) !important;
+            color: white !important;
+            border-color: var(--today-card-bg) !important;
         }
 
         .container {
@@ -476,8 +483,6 @@
     }
 </script>
 <!-- END PASSWORD PROTECTION -->
-
-
 
 
     <header>
@@ -746,7 +751,7 @@
         const juzNames = [
            "الفَاتِحَةِ", "أَفَتَطۡمَعُونَ أَن يُؤۡمِنُواْ لَكُمۡ ", "سَيَقُولُ ٱلسُّفَهَآءُ مِنَ ٱلنَّاسِ  مَا وَلَّىٰهُمۡ", "وَٱذۡكُرُواْ ٱللَّهَ فِيٓ أَيَّامٖ مَّعۡدُودَٰتٍ ", "تِلۡكَ ٱلرُّسُلُ فَضَّلۡنَا بَعۡضَهُمۡ عَلَىٰ بَعۡضٍ ", "قُلۡ أَؤُنَبِّئُكُم بِخَيۡر مِّن ذَٰلِكُمۡۖ لِلَّذِينَ ٱتَّقَوۡاْ ", "كُلُّ ٱلطَّعَامِ كَانَ حِلّٗا لِّبَنِيٓ إِسۡرَـٰٓءِيلَ", "يَسۡتَبۡشِرُونَ بِنِعۡمَة مِّنَ ٱللَّهِ وَفَضۡل ", "وَٱلۡمُحۡصَنَٰتُ مِنَ ٱلنِّسَآءِ إِلَّا مَا مَلَكَتۡ أَيۡمَٰنُكُمۡۖ ", "fَمَا لَكُمۡ فِي ٱلۡمُنَٰفِقِينَ فِئَتَيۡنِ وَٱللَّهُ أَرۡكاَسَهُم ",
            "لَّا يُحِبُّ ٱللَّهُ ٱلۡجَهۡرَ بِٱلسُّوٓءِ مِنَ ٱلۡقَوۡلِ ","وَٱتۡلُ عَلَيۡهِمۡ نَبَأَ ٱبۡنَيۡ ءَادَمَ بِٱلۡحَقِّ ", "لَتَجِدَنَّ أَشَدَّ ٱلنَّاسِ عَدَٰوَةٗ لِّلَّذِينَ ءَامَنُواْ ٱلۡيَهُودَ ", "إِنَّمَا يَسۡتَجِيبُ ٱلَّذِينَ يَسۡمَعُونَۘ وَٱلۡمُوۡتَىٰ يَبۡعَثُهُمُ ٱللَّهُ", "وَلَوۡ أَنَّنَا نَزَّلۡنَآ إِلَيۡهِمُ ٱلۡمَلَـٰٓئِكَةَ وَكَلَّمَهُمُ ٱلۡمَوۡتَىٰ ", "الأَعْرَافِ", "قَالَ ٱلۡمَلأُ ٱلَّذِينَ ٱسۡتَكۡبَرُواْ مِن قَوۡمِهِۦ لَنُخۡرِجَنَّكَ ", "وَإِذۡ نَتَقۡنَا ٱلۡجَبَلَ فَوۡقَهُمۡ كَأَنَّهُۥ ظُلَّةٞ", "وَٱعۡلَمُوٓاْ أَنَّمَا غَنِمۡتُم مِّن شَيۡء فَأَنَّ لِلَّهِ خُمُسَهُۥ ", "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓاْ إِنَّ كَثيرٗا مِّنَ ٱلۡأَحۡبَارِ ",
-           "إِنَّمَا ٱلسَّبِيلُ عَلَى ٱلَّذِينَ يَسۡتَـٔۡذِنُونَكَ وَهُمۡ أَغۡنِيَآءُ", "لِّلَّذِينَ أَحۡسَنُواْ ٱلۡحُسۡنَىٰ وَزِيَادَةٞۖ ", "وَمَا مِن دَآبَّة فِي ٱلۡأَرۡضِ إِلَّا عَلَى ٱللَّهِ رِزۡقُهَا", "وَإِلَىٰ مَدۡيَنَ أَخَاهُمۡ شُعَيۡبٗاۚ", "وَمَآ أُبَرِّئُ نَفۡسِيٓۚ إِنَّ ٱلنَّفۡسَ لَأَمَّارَةُۢ بِٱلسُّوۡءِ", "أَفَمَن يَعۡلَمُ أَنَّمَآ أُنزِلَ إِلَيۡكَ مِن رَّبِّكَ ٱلۡحَقُّ", "الحِجْرِ", "وَقَالَ ٱللَّهُ لَا تَتَّخِذُوٓاْ إِلَٰهَيۡنِ ٱثۡنَيۡنِۖ ", "سُبۡحَٰنَ ٱلَّذِيٓ أَسۡرَىٰ بِعَبۡدِهِۦ لَيۡلٗا ", "أَوَلَمۡ يَرَوۡاْ أَنَّ ٱللَّهَ ٱلَّذِي خَلَقَ ٱلسَّمَٰوَرَٰتِ وَٱلۡأَرۡضَ",
+           "إِنَّمَا ٱلسَّبِيلُ عَلَى ٱلَّذِينَ يَسۡتَـٔۡذِنُونَكَ وَهُمۡ أَغۡنِيَآءُ", "لِّلَّذِينَ أَحۡسَنُواْ ٱلۡحُسۡنَىٰ وَزِيَادَةٞۖ ", "وَمَا مِن دَآبَّة فِي ٱلۡأَرۡضِ إِلَّا عَلَى ٱللَّهِ رِزۡقُهَا", "وَإِلَىٰ مَدۡيَنَ أَخَاهُمۡ شُعَيۡبٗاۚ", "وَمَآ أُبَرِّئُ نَفۡسِيٓۚ إِنَّ ٱلنَّفۡسَ لَأَمَّارَةُۢ بِٱلسُّوٓءِ", "أَفَمَن يَعۡلَمُ أَنَّمَآ أُنزِلَ إِلَيۡكَ مِن رَّبِّكَ ٱلۡحَقُّ", "الحِجْرِ", "وَقَالَ ٱللَّهُ لَا تَتَّخِذُوٓاْ إِلَٰهَيۡنِ ٱثۡنَيۡنِۖ ", "سُبۡحَٰنَ ٱلَّذِيٓ أَسۡرَىٰ بِعَبۡدِهِۦ لَيۡلٗا ", "أَوَلَمۡ يَرَوۡاْ أَنَّ ٱللَّهَ ٱلَّذِي خَلَقَ ٱلسَّمَٰوَرَٰتِ وَٱلۡأَرۡضَ",
            "قَالَ أَلَمۡ أَقُل لَّكَ إِنَّكَ لَن تَسۡتَطِيعَ مَعِيَ صَبۡرٗا", "طه", "الأَنْبِيَاءِ", "الحَجِّ", "المُؤْمِنُونَ", "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ لَا تَتَّبِعُواْ خطُوَٰتِ ٱلشَّيۡطَٰنِۚ "," وَقَالَ ٱلَّذِينَ لَا يَرۡجُونَ لِقَآءَنَا  ", "قَالُوٓاْ أَنُؤۡمِنُ لَكَ وَٱتَّبَعَكَ ٱلۡأَرۡذَلُونَ", "فَمَا كَانَ جَوَابَ قوۡمِهِۦٓ إِلَّآ أَن قَالُوٓاْ", "وَلَقَدۡ وَصَّلۡنَا لَهُمُ ٱلۡقَوۡلِ لَعَلَّهُمۡ يَتَذَكَّرُونَ",
            "وَلَا تُجَٰدِلُوٓاْ أَهۡلَ ٱلۡكِتَٰبِ إِلَّا بِٱلَّتِي هِيَ أَحۡسَنُ ", "وَمَن يُسۡلِمۡ وَجۡهَهُۥٓ إِلَى ٱللَّهِ وَهَوَمُحۡسِنٞ", "وَمَن يَقۡنُتۡ مِنكُنَّ لِلَّهِ وَرَسُولِهِ وَتَعۡمَلۡ صَٰلِحٗا ", "قُلۡ مَن يَرۡزُقُكُم مِّنَ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۖ ", "وَمَآ أَنزَلۡنَا عَلَىٰ قَوۡمِهِ مِنۢ بَعۡدِهِ مِن جُند", "فَنَبَذۡنَٰهُ بِٱلۡعَرَآءِ وَهُوَ سَقِيمٞ", "فَمَنۡ أَظۡلَمُ مِمَّن كَذَبَ عَلَى ٱللَّهِ وَكَذَّبَ ", "وَيَٰقَوۡمِ مَا لِيٓ أدۡعُوكُمۡ إِلَى ٱلنَّجَوٰةِ", "إِلَيۡهِ يُردُّ عِلۡمُ ٱلسَّاعَةِۚ", "قَٰلَ أَوَلَوۡ جِئۡتُكُم بِأَهۡدَىٰ",
            " الأَحْقَافِ", "لَّقَدۡ رَضِيَ ٱللَّهُ عَنِ ٱلۡمُؤۡمِنِينَ إِذۡ يُبَايِعُونَكَ", "قَالَ فَمَا خَطۡبُكُمۡ أَيُّهَا ٱلۡمُرۡسَلُونَ", "الرَّحْمـٰنِ", "المُجَادْلَةِ", "الجُمُعَةِ", "المُلكِ", "الجِنِّ","النَبَإِ","الأَعْلَى"
@@ -755,7 +760,7 @@
             "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النُّور", "الفرقان", "الشعراء", "النَّمْل", "القصص", "العنكبوت", "الرُّوم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"
         ];
         const ajzaNames = [
-          "الفَاتِحَةِ", "سَيَقُولُ ٱلسُّفَهَآءُ مِنَ ٱلنَّاسِ  مَا وَلَّىٰهُمۡ", "تِلۡكَ ٱلرُّسُلُ فَضَّلۡنَا بَعۡضَهُمۡ عَلَىٰ بَعۡضٍ ", "كُلُّ ٱلطَّعَامِ كَانَ حِلّٗا لِّبَنِيٓ إِسۡرَـٰٓءِيلَ", "وَٱلۡمُحۡصَنَٰتُ مِنَ ٱلنِّسَآءِ إِلَّا مَا مَلَكَتۡ أَيۡمَٰنُكُمۡۖ ", "لَّا يُحِبُّ ٱللَّهُ ٱلۡجَهۡرَ بِٱلسُّوٓءِ مِنَ ٱلۡقَوۡلِ ", "لَتَجِدَنَّ أَشَدَّ ٱلنَّاسِ عَدَٰوَةٗ لِّلَّذِينَ ءَامَنُواْ ٱلۡيَهُودَ ", "وَلَوۡ أَنَّنَا نَزَّلۡنَآ إِلَيۡهِمُ ٱلۡمَلَـٰٓئِكَةَ وَكَلَّمَهُمُ ٱلۡمَوۡتَىٰ ", "قَالَ ٱلۡمَلأُ ٱلَّذِينَ ٱسۡتَكۡبَرُواْ مِن قَوۡمِهِۦ لَنُخۡرِجَنَّكَ ", "وَٱعۡلَمُوٓاْ أَنَّمَا غَنِمۡتُم مِّن شَيء فَأَنَّ لِلَّهِ خُمُسَهُۥ ", "إِنَّمَا ٱلسَّبِيلُ عَلَى ٱلَّذِينَ يَسۡتَـٔۡذِنُونَكَ وَهُمۡ أَغۡنِيَآءُ", "وَمَا مِن دَآبَّة فِي ٱلۡأَرۡضِ إِلَّا عَلَى ٱللَّهِ رِزۡقُهَا", "وَمَآ أُبَرِّئُ نَفۡسِيٓۚ إِنَّ ٱلنَّفۡسَ لَأَمَّارَةُۢ بِٱلسُّوۡءِ", "الحِجْرِ", "سُبۡحَٰنَ ٱلَّذِيٓ أَسۡرَىٰ بِعَبۡدِهِۦ لَيۡلٗا ", "قَالَ أَلَمۡ أَقُل لَّكَ إِنَّكَ لَن تَسۡتَطِيعَ مَعِيَ صَبۡرٗا", "الأَنْبِيَاءِ", "المُؤْمِنُونَ", " وَقَالَ ٱلَّذِينَ لَا يَرۡجُونَ لِقَآءَنَا  ", "فَمَا كَانَ جَوَابَ قوۡمِهِۦٓ إِلَّآ أَن قَالُوٓاْ", "وَلَا تُجَٰدِلُوٓاْ أَهۡلَ ٱلۡكِتَٰبِ إِلَّا بِٱلَّتِي هِيَ أَحۡسَنُ ", "وَمَن يَقۡنُتۡ مِنكُنَّ لِلَّهِ وَرَسُولِهِ وَتَعۡمَلۡ صَٰلِحٗا ", "وَمَآ أَنزَلۡنَا عَلَىٰ قَوۡمِهِۦ مِنۢ بَعۡدِهِۦ مِن جُند", "فَمَنۡ أَظۡلَمُ مِمَّن كَذَبَ عَلَى ٱللَّهِ وَكَذَّبَ ", "إِلَيۡهِ يُردُّ عِلۡمُ ٱلسَّاعَةِۚ", " الأَحْقَافِ", "قَالَ فَمَا خَطۡبُكُمۡ أَيُّهَا ٱلۡمُرۡسَلُونَ", "المُجَادْلَةِ", "المُلكِ", "النَبَإِ"
+          "الفَاتِحَةِ", "سَيَقُولُ ٱلسُّفَهَآءُ مِنَ ٱلنَّاسِ  مَا وَلَّىٰهُمۡ", "تِلۡكَ ٱلرُّسُلُ فَضَّلۡنَا بَعۡضَهُمۡ عَلَىٰ بَعۡضٍ ", "كُلُّ ٱلطَّعَامِ كَانَ حِلّٗا لِّبَنِيٓ إِسۡرَـٰٓءِيلَ", "وَٱلۡمُحۡصَنَٰتُ مِنَ ٱلنِّسَآءِ إِلَّا مَا مَلَكَتۡ أَيۡمَٰنُكُمۡۖ ", "لَّا يُحِبُّ ٱللَّهُ ٱلۡجَهۡرَ بِٱلسُّوٓءِ مِنَ ٱلۡقَوۡلِ ", "لَتَجِدَنَّ أَشَدَّ ٱلنَّاسِ عَدَٰوَةٗ لِّلَّذِينَ ءَامَنُواْ ٱلۡيَهُودَ ", "وَلَوۡ أَنَّنَا نَزَّلۡنَآ إِلَيۡهِمُ ٱلۡمَلَـٰٓئِكَةَ وَكَلَّمَهُمُ ٱلۡمَوۡتَىٰ ", "قَالَ ٱلۡمَلأُ ٱلَّذِينَ ٱسۡتَكۡبَرُواْ مِن قَوۡمِهِۦ لَنُخۡرِجَنَّكَ ", "وَٱعۡلَمُوٓاْ أَنَّمَا غَنِمۡتُم مِّن شَيء فَأَنَّ لِلَّهِ خُمُسَهُۥ ", "إِنَّمَا ٱلسَّبِيلُ عَلَى ٱلَّذِينَ يَسۡتَـٔۡذِنُونَكَ وَهُمۡ أَغۡنِيَآءُ", "وَمَا مِن دَآبَّة فِي ٱلۡأَرۡضِ إِلَّا عَلَى ٱللَّهِ رِزۡقُهَا", "وَمَآ أُبَرِّئُ نَفۡسِيٓۚ إِنَّ ٱلنَّفۡسَ لَأَمَّارَةُۢ بِٱلسُّوٓءِ", "الحِجْرِ", "سُبۡحَٰنَ ٱلَّذِيٓ أَسۡرَىٰ بِعَبۡدِهِۦ لَيۡلٗا ", "قَالَ أَلَمۡ أَقُل لَّكَ إِنَّكَ لَن تَسۡتَطِيعَ مَعِيَ صَبۡرٗا", "الأَنْبِيَاءِ", "المُؤْمِنُونَ", " وَقَالَ ٱلَّذِينَ لَا يَرۡجُونَ لِقَآءَنَا  ", "فَمَا كَانَ جَوَابَ قوۡمِهِۦٓ إِلَّآ أَن قَالُوٓاْ", "وَلَا تُجَٰدِلُوٓاْ أَهۡلَ ٱلۡكِتَٰبِ إِلَّا بِٱلَّتِي هِيَ أَحۡسَنُ ", "وَمَن يَقۡنُتۡ مِنكُنَّ لِلَّهِ وَرَسُولِهِ وَتَعۡمَلۡ صَٰلِحٗا ", "وَمَآ أَنزَلۡنَا عَلَىٰ قَوۡمِهِۦ مِنۢ بَعۡدِهِۦ مِن جُند", "فَمَنۡ أَظۡلَمُ مِمَّن كَذَبَ عَلَى ٱللَّهِ وَكَذَّبَ ", "إِلَيۡهِ يُردُّ عِلۡمُ ٱلسَّاعَةِۚ", " الأَحْقَافِ", "قَالَ فَمَا خَطۡبُكُمۡ أَيُّهَا ٱلۡمُرۡسَلُونَ", "المُجَادْلَةِ", "المُلكِ", "النَبَإِ"
         ];
 
         const surahVersesCount = [
@@ -809,9 +814,10 @@
         function toggleRatingFilter() {
             const ratingScroll = document.getElementById('ratingCardsScroll');
             const dateScroll = document.getElementById('dateCardsScroll');
+            const dateBtn = document.getElementById('dateFilterBtn');
             
-            // إغلاق شريط التاريخ إن كان مفتوحاً
             dateScroll.classList.remove('show');
+            if (dateBtn) dateBtn.classList.remove('active');
             activeDateFilter = null;
 
             if (ratingScroll.classList.contains('show')) {
@@ -895,17 +901,20 @@
         function toggleDateFilter() {
             const ratingScroll = document.getElementById('ratingCardsScroll');
             const dateScroll = document.getElementById('dateCardsScroll');
+            const dateBtn = document.getElementById('dateFilterBtn');
 
             ratingScroll.classList.remove('show');
             activeRatingFilter = null;
 
             if (dateScroll.classList.contains('show')) {
                 dateScroll.classList.remove('show');
+                if (dateBtn) dateBtn.classList.remove('active');
                 activeDateFilter = null;
                 renderList();
             } else {
                 renderDateCards();
                 dateScroll.classList.add('show');
+                if (dateBtn) dateBtn.classList.add('active');
             }
         }
 
@@ -919,23 +928,24 @@
                 return;
             }
 
-            // الحصول على تاريخ الهاتف الحالي بنفس صيغة العرض (الشهر/اليوم)
-            const today = new Date();
-            const todayFormatted = `${today.getMonth() + 1}/${today.getDate()}`;
+            const now = new Date();
+            const todayStrFormatted = `${now.getMonth() + 1}/${now.getDate()}`;
 
             dates.forEach(dateStr => {
                 const card = document.createElement('div');
                 card.className = 'rating-card';
                 
-                const cardDisplayDate = formatDisplayDate(dateStr);
+                const formattedDate = formatDisplayDate(dateStr);
                 
-                // مقارنة تاريخ الكرت مع تاريخ الهاتف للتلوين بالبرتقالي
-                if (cardDisplayDate === todayFormatted) {
+                if (formattedDate === todayStrFormatted) {
                     card.classList.add('today-card');
                 }
 
-                if (activeDateFilter === dateStr) card.classList.add('active');
-                card.innerText = cardDisplayDate;
+                if (activeDateFilter === dateStr) {
+                    card.classList.add('active');
+                }
+
+                card.innerText = formattedDate;
                 card.onclick = () => selectDateFilter(dateStr);
                 dateScroll.appendChild(card);
             });
@@ -1065,6 +1075,8 @@
             
             updateStudentSelectOptions();
             activeDateFilter = null;
+            const dateBtn = document.getElementById('dateFilterBtn');
+            if (dateBtn) dateBtn.classList.remove('active');
             if (document.getElementById('dateCardsScroll').classList.contains('show')) {
                 renderDateCards();
             }
@@ -1166,6 +1178,8 @@
             currentStudentId = document.getElementById('studentSelect').value;
             localStorage.setItem('quran_current_student_id', currentStudentId);
             activeDateFilter = null;
+            const dateBtn = document.getElementById('dateFilterBtn');
+            if (dateBtn) dateBtn.classList.remove('active');
             if (document.getElementById('dateCardsScroll').classList.contains('show')) {
                 renderDateCards();
             }
@@ -1195,6 +1209,8 @@
             saveStudentsToStorage();
             updateStudentSelectOptions();
             activeDateFilter = null;
+            const dateBtn = document.getElementById('dateFilterBtn');
+            if (dateBtn) dateBtn.classList.remove('active');
             if (document.getElementById('dateCardsScroll').classList.contains('show')) {
                 renderDateCards();
             }
@@ -1500,7 +1516,11 @@
                         else { badgeClass = 'status-not-memorized'; borderClass = 'border-not-memorized'; statusText = 'لم يحفظ'; }
 
                         confidenceSectionHTML = `<div class="confidence-level" style="color: ${confidenceColor};"><i class="ph ph-shield-check"></i> مستوى الثقة: ${confidenceScore}%</div>`;
-                        progressHTML = calculateProgressText(attempts);
+                        if (activeDateFilter === null) {
+                            progressHTML = calculateProgressText(attempts);
+                        } else {
+                            progressHTML = '';
+                        }
                     }
 
                     card.classList.add(borderClass);
@@ -2162,6 +2182,109 @@
                 `;
                 historyList.appendChild(item);
             });
+        }
+
+        function deleteSpecificAttempt(itemIndex, attemptArrayId) {
+            const student = getCurrentStudentData();
+            let targetData = (currentSelectedTab === 'ahzab') ? student.data : ((currentSelectedTab === 'suwar') ? student.surahData : student.ajzaData);
+
+            if (!confirm("هل أنت متأكد من حذف هذه المحاولة؟")) return;
+
+            targetData[itemIndex].splice(attemptArrayId, 1);
+            targetData[itemIndex].forEach((att, idx) => {
+                att.attemptNumber = idx + 1;
+            });
+
+            if (targetData[itemIndex].length === 0) {
+                delete targetData[itemIndex];
+            }
+
+            saveStudentsToStorage();
+            if (document.getElementById('dateCardsScroll').classList.contains('show')) {
+                renderDateCards();
+            }
+            renderList();
+            displayHistory(itemIndex);
+        }
+
+        function renameStudent() {
+            if (!currentStudentId) return;
+            const student = studentsList.find(s => s.id === currentStudentId);
+            const newName = prompt("تعديل اسم الطالب:", student.name);
+            if (newName && newName.trim() !== "") {
+                student.name = newName.trim();
+                saveStudentsToStorage();
+                updateStudentSelectOptions();
+            }
+        }
+
+        function deleteStudent() {
+            if (!currentStudentId) return;
+            const student = studentsList.find(s => s.id === currentStudentId);
+            if (confirm(`هل أنت متأكد من حذف الطالب (${student.name}) وكافة بياناته؟`)) {
+                studentsList = studentsList.filter(s => s.id !== currentStudentId);
+                const filtered = studentsList.filter(s => (s.groupId || 'group_default') === currentGroupId);
+                currentStudentId = filtered.length > 0 ? filtered[0].id : null;
+                saveStudentsToStorage();
+                updateStudentSelectOptions();
+                activeDateFilter = null;
+                const dateBtn = document.getElementById('dateFilterBtn');
+                if (dateBtn) dateBtn.classList.remove('active');
+                if (document.getElementById('dateCardsScroll').classList.contains('show')) {
+                    renderDateCards();
+                }
+                renderList();
+                sendDataToSketchware("STUDENT_DELETED");
+            }
+        }
+
+        function exportData() {
+            const exportObject = {
+                version: 2,
+                groupsList: groupsList,
+                studentsList: studentsList,
+                settings: settings
+            };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObject));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `quran_tracker_backup_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function triggerImport() { document.getElementById('importFileInput').click(); }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (imported.studentsList) {
+                        studentsList = imported.studentsList;
+                        if (imported.groupsList) groupsList = imported.groupsList;
+                        if (imported.settings) settings = imported.settings;
+
+                        saveStudentsToStorage();
+                        localStorage.setItem('quran_groups_list', JSON.stringify(groupsList));
+                        localStorage.setItem('quran_teacher_settings', JSON.stringify(settings));
+
+                        loadGroupsData();
+                        loadStudentsData();
+                        loadSettings();
+                        alert("تم استيراد النسخة الاحتياطية بنجاح!");
+                    } else {
+                        alert("ملف غير صالح.");
+                    }
+                } catch (err) {
+                    alert("حدث خطأ أثناء قراءة الملف.");
+                }
+            };
+            reader.readAsText(file);
         }
     </script>
 </body>
