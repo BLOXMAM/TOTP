@@ -3,535 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار WebView الشامل</title>
+    <title>منظومة التحطيم الشامل - Root Detected</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 15px;
-            direction: rtl;
-            text-align: right;
-        }
-        section {
-            background: #fff;
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #007bff;
-            font-size: 1.1rem;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 5px;
-            margin-top: 0;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin: 5px 0;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        input, select {
-            padding: 6px;
-            margin: 5px 0;
-            width: 100%;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .box {
-            width: 50px;
-            height: 50px;
-            background-color: #ff5722;
-            position: relative;
-            border-radius: 4px;
-            transition: transform 0.5s;
-        }
-        canvas {
-            background: #222;
-            width: 100%;
-            height: 150px;
-            border-radius: 4px;
-        }
-    </style>
-<style id="admin-styles">
-        :root {
-            --header-bg-light: #ffffff;
-            --header-text-light: #333333;
-            --header-bg: var(--header-bg-light);
-            --header-text: var(--header-text-light);
-            --drawer-bg-light: #ffffff;
-            --drawer-text-light: #333333;
-            --drawer-bg: var(--drawer-bg-light);
-            --drawer-text: var(--drawer-text-light);
-        }
-        [data-user-theme="dark"] {
-            --header-bg-dark: #1e1e1e;
-            --header-text-dark: #e0e0e0;
-            --header-bg: var(--header-bg-dark);
-            --header-text: var(--header-text-dark);
-            --drawer-bg-dark: #1e1e1e;
-            --drawer-text-dark: #e0e0e0;
-            --drawer-bg: var(--drawer-bg-dark);
-            --drawer-text: var(--drawer-text-dark);
-        }
-        html {
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            overflow-x: hidden !important;
-        }
         * {
-            box-sizing: border-box !important;
-            -webkit-user-select: none !important;
-            -moz-user-select: none !important;
-            -ms-user-select: none !important;
-            user-select: none !important;
-            -webkit-touch-callout: none !important;
-            -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
-        }
-        body {
-            margin: 0 !important;
-            padding: 0 !important;
-            padding-top: 56px !important;
-            width: 100% !important;
-            min-width: 100% !important;
-            max-width: 100% !important;
-            min-height: 100vh !important;
-            overflow-x: hidden !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: stretch !important;
-        }
-        header { position: fixed; top: 0; left: 0; z-index: 1000; background: var(--header-bg); height: 56px !important; line-height: 56px !important; padding: 0 15px !important; color: var(--header-text); display: flex; align-items: center; justify-content: space-between; width: 100% !important; max-width: 100% !important; min-width: 100% !important; box-sizing: border-box; direction: rtl; gap: 15px; overflow: hidden !important; transition: background-color 0.3s, color 0.3s; }
-        .header-brand { display: flex; align-items: center; gap: 15px; width: auto; text-align: right; }
-        
-        .menu-btn-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 24px;
-            height: 18px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
             box-sizing: border-box;
-            transition: transform 0.15s ease;
-            margin-top: auto;
-            margin-bottom: auto;
+            margin: 0;
+            padding: 0;
         }
-        .menu-btn-container:active {
-            transform: scale(0.85);
+
+        body {
+            background-color: #050505;
+            color: #00ff66;
+            font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
-        .menu-bar-line {
+
+        /* تأثير الشاشة المخترقة والتشويش */
+        .glitch-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 3px;
-            background-color: var(--header-text);
-            border-radius: 2px;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            transform-origin: right center;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            z-index: 10;
         }
-        .menu-btn-container.active-icon .menu-bar-line:nth-child(1) {
-            transform: rotate(-45deg);
+
+        .matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
+            font-size: 14px;
+            color: #ff0033;
+            overflow: hidden;
         }
-        .menu-btn-container.active-icon .menu-bar-line:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
+
+        .container {
+            position: relative;
+            z-index: 20;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(10, 0, 0, 0.85);
+            border: 2px solid #ff0033;
+            box-shadow: 0 0 30px rgba(255, 0, 51, 0.5), inset 0 0 20px rgba(255, 0, 51, 0.2);
+            animation: shake 0.2s infinite;
+            animation-play-state: paused;
         }
-        .menu-btn-container.active-icon .menu-bar-line:nth-child(3) {
-            transform: rotate(45deg);
+
+        .container.active-shake {
+            animation-play-state: running;
         }
-        
-        .drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1001; display: none; }
-        .drawer { position: fixed; top: 0; width: 280px; height: 100%; background: var(--drawer-bg); color: var(--drawer-text); z-index: 1002; transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); display: flex; flex-direction: column; right: -280px; }
-        .drawer.open { right: 0; }
-        .drawer-header { background: var(--drawer-bg); color: var(--drawer-text); height: 56px !important; line-height: 56px !important; padding: 0 15px !important; font-weight: bold; text-align: right; box-sizing: border-box; overflow: hidden !important; border-bottom: 1px solid rgba(0,0,0,0.1); }
-        .drawer-menu-container { flex: 1; overflow-y: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
-        .drawer-menu-container::-webkit-scrollbar { display: none; }
-        .drawer-menu { list-style: none; padding: 10px 0; margin: 0; direction: rtl; }
-        .drawer-item { padding: 15px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--drawer-text); transition: all 0.2s ease; outline: none; -webkit-tap-highlight-color: transparent; }
-        .drawer-item:hover { background-color: rgba(0,0,0,0.05); transform: translateX(-4px); }
-        .drawer-item:active { background-color: rgba(0,0,0,0.1) !important; transform: scale(0.98) !important; transition: transform 0.05s ease; }
-        .drawer-loader { border: 3px solid #f3f3f3; border-top: 3px solid var(--drawer-text); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 20px auto; }
-.dl123 {
-    background: transparent; border: none; color: var(--header-text); cursor: pointer;
-    font-size: 1.2rem; width: 38px; height: 38px; border-radius: 8px; display: inline-flex;
-    align-items: center; justify-content: center; transition: background-color 0.2s, transform 0.1s;
-    border: 1px solid rgba(255, 255, 255, 0.15); appearance: none; box-sizing: border-box;
-}
-.dl123:hover { background-color: rgba(0,0,0,0.08); }
-.dl123:active { transform: scale(0.9); }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            20% { transform: translate(-2px, -22px) rotate(-1deg); }
+            40% { transform: translate(-1px, 2px) rotate(1deg); }
+            60% { transform: translate(3px, 1px) rotate(0deg); }
+            80% { transform: translate(1px, -1px) rotate(1deg); }
+            100% { transform: translate(-1px, 2px) rotate(-1deg); }
+        }
+
+        h1 {
+            color: #00ff66;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ff66;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            background: #000;
+            border: 1px solid #00ff66;
+            color: #00ff66;
+            font-size: 1.2em;
+            text-align: center;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #ff0033;
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
+        }
+
+        button {
+            padding: 12px 30px;
+            background: #00ff66;
+            color: #000;
+            border: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #00ff66;
+        }
+
+        button:hover {
+            background: #ff0033;
+            color: #fff;
+            box-shadow: 0 0 20px #ff0033;
+        }
+
+        #roastOutput {
+            font-size: 1.2em;
+            color: #ff3333;
+            line-height: 1.6;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            margin-top: 20px;
+        }
+
+        /* نافذة الـ Dialog المنبثقة للتدمير والخروج */
+        .custom-dialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dialog-content {
+            background: #110000;
+            border: 3px solid #ff0033;
+            padding: 30px;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 0 50px #ff0033;
+        }
+
+        .dialog-content h3 {
+            color: #ff0033;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .dialog-content p {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .dialog-content button {
+            background: #ff0033;
+            color: #fff;
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-<!-- START ADMIN DRAWER -->
-<header>
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <button class="menu-btn-container" id="menuBtnToggle" onclick="toggleDrawer()">
-            <div class="menu-bar-line"></div>
-            <div class="menu-bar-line"></div>
-            <div class="menu-bar-line"></div>
-        </button>
-        <span id="pageMainHeader" style="font-weight:bold; font-size: 1.1rem; display: inline-block; vertical-align: middle;">home</span>
+
+    <div class="glitch-bg"></div>
+    <div class="matrix-rain" id="matrixRain"></div>
+
+    <div class="container" id="mainContainer">
+        <div id="contentArea">
+            <h1 id="mainTitle">مرحباً بك أيها العبقري الجديد!</h1>
+            <p id="mainDesc">نحن سعادتي غامرة بانضمام عقلية فذة مثلك إلى نظامنا المتميز. يرجى إدخال اسمك الكريم لتوثيق هذا اليوم التاريخي:</p>
+            
+            <div class="input-group" id="inputGroup">
+                <input type="text" id="username" placeholder="اكتب اسمك هنا يا رائع...">
+                <br><br>
+                <button onclick="processUser()">توثيق ودخول</button>
+            </div>
+            
+            <div id="roastOutput"></div>
+        </div>
     </div>
-    <div class="dl123" id="userThemeToggleBtn" onclick="toggleUserTheme()"><i class="fa-solid fa-moon"></i></div>
-</header>
-<div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
-<nav class="drawer" id="drawer">
-    <div class="drawer-header" id="drawerSideHeader">home</div>
-    <div id="drawerLoader" class="drawer-loader"></div>
-    <div class="drawer-menu-container">
-        <ul class="drawer-menu" id="drawerDynamicMenu"></ul>
+
+    <!-- نافذة الـ Dialog النهائية -->
+    <div class="custom-dialog" id="exitDialog">
+        <div class="dialog-content">
+            <h3>تنبيه أمني خطير!</h3>
+            <p>لقد تجاوزت الحد الأقصى من التخلف التقني. جارٍ طردك وتدمير ما تبقى من كرامتك الرقمية...</p>
+            <button onclick="exitApp()">إغلاق التطبيق فوراً</button>
+        </div>
     </div>
-</nav>
-<!-- END ADMIN DRAWER -->
-<!-- START PASSWORD PROTECTION -->
-<style id="page-lock-style">
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Tajawal', sans-serif;
-    }
-    html, body { overflow: hidden !important; width: 100% !important; height: 100% !important; margin: 0 !important; padding: 0 !important; }
-    #page-lock-screen-protection {
-        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-        background: #f4f6f9; color: #2c3e50; z-index: 9999999;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        font-family: system-ui, -apple-system, sans-serif; padding: 20px; box-sizing: border-box;
-        text-align: center;
-    }
-    #page-lock-screen-protection .lock-card {
-        background: #ffffff; padding: 35px 25px; border-radius: 18px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.06); max-width: 360px; width: 100%;
-        border: 1px solid #e1e8ed;
-    }
-    #page-lock-screen-protection .lock-icon {
-        font-size: 42px; margin-bottom: 15px; color: #34495e;
-    }
-    #page-lock-screen-protection h2 {
-        margin: 0 0 10px 0; font-size: 1.3rem; color: #2c3e50; font-weight: 700;
-    }
-    #page-lock-screen-protection p {
-        margin: 0 0 20px 0; font-size: 0.95rem; color: #7f8c8d; line-height: 1.5;
-    }
-    #page-lock-screen-protection input {
-        width: 100%; padding: 12px 15px; border: 1.5px solid #dcdde1;
-        border-radius: 10px; font-size: 1rem; outline: none; margin-bottom: 15px;
-        box-sizing: border-box; text-align: center; transition: border-color 0.2s;
-    }
-    #page-lock-screen-protection input:focus {
-        border-color: #18bc9c;
-    }
-    #page-lock-screen-protection button {
-        width: 100%; background: #18bc9c; color: white; border: none;
-        padding: 12px; border-radius: 10px; font-size: 1rem; font-weight: bold;
-        cursor: pointer; transition: background 0.2s;
-    }
-    #page-lock-screen-protection button:active {
-        transform: scale(0.98);
-    }
-    #page-lock-error-msg {
-        color: #e74c3c; font-size: 0.85rem; margin-top: 10px; display: none;
-    }
-</style>
-<div id="page-lock-screen-protection">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <div class="lock-card">
-        <div class="lock-icon"><i class="fa-solid fa-lock"></i></div>
-        <h2>هذه صفحة خاصة!</h2>
-        <p>يرجى إدخال كلمة المرور لتستطيع رؤيتها!</p>
-        <input type="password" id="page-lock-pass-input" placeholder="كلمة المرور">
-        <button onclick="verifyPagePassword()">دخول</button>
-        <div id="page-lock-error-msg">كلمة المرور غير صحيحة!</div>
-    </div>
-</div>
-<script>
-    const PAGE_PASSWORD = "1234";
-    function verifyPagePassword() {
-        const inputVal = document.getElementById("page-lock-pass-input").value;
-        const errorEl = document.getElementById("page-lock-error-msg");
-        if(PAGE_PASSWORD !== "" && inputVal === PAGE_PASSWORD) {
-            document.getElementById("page-lock-screen-protection").remove();
-            const lockStyle = document.getElementById("page-lock-style");
-            if(lockStyle) lockStyle.remove();
-        } else {
-            errorEl.style.display = "block";
-        }
-    }
-</script>
-<!-- END PASSWORD PROTECTION -->
-
-
-    <h1>اختبار كفاءة الـ WebView</h1>
-    <p>هذه الصفحة تتدرج من العناصر الأساسية إلى البرمجيات المعقدة لفحص توافق المحرك.</p>
-
-    <!-- 1. المستوى البسيط: عناصر HTML الأساسية -->
-    <section>
-        <h2>1. المستوى البسيط (Basic HTML)</h2>
-        <p>نص عادي، روابط، وجداول أساسية.</p>
-        <a href="https://www.google.com" target="_blank">رابط خارجي (يختبر فتح المتصفح أو الـ WebView)</a>
-        <table border="1" style="width:100%; margin-top:10px; border-collapse: collapse; text-align: center;">
-            <tr><th>العنصر</th><th>الحالة</th></tr>
-            <tr><td>HTML5</td><td>مدعوم</td></tr>
-        </table>
-    </section>
-
-    <!-- 2. المستوى المتوسط: تفاعل المدخلات والأحداث -->
-    <section>
-        <h2>2. المستوى المتوسط (Forms & Events)</h2>
-        <label for="nameInput">أدخل اسمك:</label>
-        <input type="text" id="nameInput" placeholder="اكتب هنا...">
-        <button onclick="greetUser()">إرسال الترحيب</button>
-        <p id="greetingOutput" style="font-weight: bold; color: green;"></p>
-    </section>
-
-    <!-- 3. المستوى المتقدم: معالجة النصوص وتوليد العناصر عبر DOM -->
-    <section>
-        <h2>3. المستوى المتقدم (Dynamic DOM & LocalStorage)</h2>
-        <input type="text" id="taskInput" placeholder="أضف مهمة جديدة...">
-        <button onclick="addTask()">إضافة للقائمة</button>
-        <ul id="taskList"></ul>
-        <button onclick="clearTasks()" style="background-color: #dc3545;">حذف التخزين المحلي</button>
-    </section>
-
-    <!-- 4. المستوى المعقد: جافاسكريبت متقدم، تفاعل مع Android Interface (إن وجد)، ورسوم متحركة -->
-    <section>
-        <h2>4. المستوى المعقد للغاية (JS Bridge, Canvas & Animations)</h2>
-        <p>اختبار الجسر البرمجي (Android Interface) إن كان مبرمجاً في تطبيقك:</p>
-        <button onclick="callAndroidBridge()">استدعاء دالة من التطبيق الحاضن</button>
-        
-        <p>تحريك عنصر عبر CSS Transitions:</p>
-        <div id="animBox" class="box"></div>
-        <button onclick="moveBox()">تحريك المربع</button>
-
-        <p>رسومات تفاعلية عبر Canvas (2D Context):</p>
-        <canvas id="gameCanvas"></canvas>
-    </section>
 
     <script>
-        // --- 2. تفاعل المستوى المتوسط ---
-        function greetUser() {
-            const name = document.getElementById('nameInput').value;
-            const output = document.getElementById('greetingOutput');
-            if(name.trim() !== "") {
-                output.textContent = "أهلاً بك، " + name + "! الـ WebView يعمل بشكل ممتاز.";
-            } else {
-                output.textContent = "الرجاء إدخال اسم أولاً.";
-            }
-        }
-
-        // --- 3. المستوى المتقدم (LocalStorage & DOM) ---
-        document.addEventListener("DOMContentLoaded", loadTasks);
-
-        function addTask() {
-            const taskInput = document.getElementById('taskInput');
-            const taskValue = taskInput.value.trim();
-            if(taskValue === "") return;
-
-            let tasks = JSON.parse(localStorage.getItem('webview_tasks')) || [];
-            tasks.push(taskValue);
-            localStorage.setItem('webview_tasks', JSON.stringify(tasks));
+        // تأثير مطر الكود في الخلفية لزيادة جو الاختراق
+        const matrixRain = document.getElementById('matrixRain');
+        const chars = "ROOT_SYS_CRASH_010101_SECURITY_BREACH_WARNING_FAIL";
+        setInterval(() => {
+            let span = document.createElement('div');
+            span.style.position = 'absolute';
+            span.style.left = Math.random() * window.innerWidth + 'px';
+            span.style.top = '-20px';
+            span.style.color = Math.random() > 0.5 ? '#ff0033' : '#00ff66';
+            span.innerText = chars[Math.floor(Math.random() * chars.length)];
+            matrixRain.appendChild(span);
             
-            taskInput.value = "";
-            renderTasks();
-        }
+            let fall = setInterval(() => {
+                let top = parseInt(span.style.top);
+                if (top > window.innerHeight) {
+                    span.remove();
+                    clearInterval(fall);
+                } else {
+                    span.style.top = (top + 5) + 'px';
+                }
+            }, 50);
+        }, 100);
 
-        function renderTasks() {
-            const list = document.getElementById('taskList');
-            list.innerHTML = "";
-            let tasks = JSON.parse(localStorage.getItem('webview_tasks')) || [];
-            tasks.forEach((task, index) => {
-                let li = document.createElement('li');
-                li.textContent = (index + 1) + ". " + task;
-                list.appendChild(li);
-            });
-        }
-
-        function loadTasks() {
-            renderTasks();
-            initCanvas();
-        }
-
-        function clearTasks() {
-            localStorage.removeItem('webview_tasks');
-            renderTasks();
-        }
-
-        // --- 4. المستوى المعقد للغاية ---
-        function callAndroidBridge() {
-            // التحقق من وجود الجسر البرمجي المربوط مع التطبيق
-            if (window.AndroidInterface && typeof window.AndroidInterface.showToast === 'function') {
-                window.AndroidInterface.showToast("مرحباً من داخل الـ WebView!");
-            } else {
-                alert("لم يتم العثور على AndroidInterface معرف في هذا الـ WebView (وهذا طبيعي إذا لم تبرمجه بعد في تطبيقك).");
+        // التحقق من التخزين المحلي عند فتح الصفحة
+        window.onload = function() {
+            const savedName = localStorage.getItem('rooted_user_name');
+            if (savedName) {
+                triggerRoast(savedName);
             }
+        };
+
+        function processUser() {
+            const nameInput = document.getElementById('username').value.trim();
+            if (!nameInput) {
+                alert("يا رائع، حتى اسمك تخفيه خوفاً؟ اكتب اسمك!");
+                return;
+            }
+            // حفظ الاسم في الـ LocalStorage لكي لا يظهر حقل الإدخال مرة أخرى
+            localStorage.setItem('rooted_user_name', nameInput);
+            triggerRoast(nameInput);
         }
 
-        let isMoved = false;
-        function moveBox() {
-            const box = document.getElementById('animBox');
-            isMoved = !isMoved;
-            box.style.transform = isMoved ? "translateX(200px) rotate(45deg)" : "translateX(0) rotate(0deg)";
-        }
-
-        function initCanvas() {
-            const canvas = document.getElementById('gameCanvas');
-            const ctx = canvas.getContext('2d');
+        function triggerRoast(name) {
+            // إخفاء حقل الإدخال وتغيير الواجهة لتصبح مخترقة ومشمئزة
+            document.getElementById('inputGroup').style.display = 'none';
+            document.getElementById('mainTitle').innerText = "تحذير: نظام مخترق وعفن!";
+            document.getElementById('mainDesc').style.display = 'none';
             
-            // ضبط أبعاد الودجت داخل الـ Canvas بدقة
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
+            // تفعيل تأثير الاهتزاز والتشويش الشديد
+            document.getElementById('mainContainer').classList.add('active-shake');
 
-            // رسم شكل هندسي بسيط لاختبار محرك الرسوميات
-            ctx.fillStyle = "#00ffcc";
-            ctx.fillRect(30, 30, 80, 80);
+            const roastDiv = document.getElementById('roastOutput');
+            
+            let messages = [
+                `أهلاً بك يا سيادة "الرائع" الفذ... ${name}!`,
+                `هل تحس بالنشوة الآن بعد أن فتحت صلاحيات الروت وظننت نفسك هكر العصر؟`,
+                `يا لها من مسخرة، جهاز بكامل عتاده وحمايته ترسله إلى الهاوية لمجرد أنك شخص عابث وفاشل لا يمتلك أي ذرة تفكير سليم!`,
+                `تخريب النظام، انتهاك الأمان، والجلوس بافتخار أمام شاشة ممزقة... إنجاز يثير الغثيان حقاً.`,
+                `أنت لست سوى نكتة سمجة يتندر عليها المطورون.. عظم الله أجر جهازك فيك!`
+            ];
 
-            ctx.font = "16px Arial";
-            ctx.fillStyle = "#ffffff";
-            ctx.fillText("Canvas 2D API مدعوم بنجاح", 130, 75);
+            let i = 0;
+            roastDiv.innerHTML = "";
+            
+            let interval = setInterval(() => {
+                if (i < messages.length) {
+                    roastDiv.innerHTML += messages[i] + "<br><br>";
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    // بعد انتهاء رسائل التحطيم بمدّة (مثلاً 5 ثواني)، تظهر نافذة الـ Dialog لتخرج من التطبيق
+                    setTimeout(() => {
+                        document.getElementById('exitDialog').style.display = 'flex';
+                    }, 4000);
+                }
+            }, 1200);
+        }
+
+        function exitApp() {
+            // محاولة إغلاق النافذة أو توجيهها لصفحة فارغة/خروج
+            window.close();
+            window.location.href = "about:blank";
         }
     </script>
-<script id="admin-scripts">
-    const username = "BLOXMAM";
-    const repo = "TOTP";
-    const currentFileName = "home.html";
-
-    function initUserTheme() {
-        const toggleBtn = document.getElementById("userThemeToggleBtn");
-        const saved = localStorage.getItem("user-theme") || "light";
-        if(saved === "dark") {
-            document.documentElement.setAttribute("data-user-theme", "dark");
-            if(toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-        } else {
-            document.documentElement.removeAttribute("data-user-theme");
-            if(toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-        }
-    }
-
-    function toggleUserTheme() {
-        const toggleBtn = document.getElementById("userThemeToggleBtn");
-        const current = document.documentElement.getAttribute("data-user-theme");
-        if(current === "dark") {
-            document.documentElement.removeAttribute("data-user-theme");
-            localStorage.setItem("user-theme", "light");
-            if(toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-        } else {
-            document.documentElement.setAttribute("data-user-theme", "dark");
-            localStorage.setItem("user-theme", "dark");
-            if(toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-        }
-    }
-
-    function toggleDrawer() {
-        const drawer = document.getElementById("drawer");
-        const overlay = document.getElementById("drawerOverlay");
-        const menuBtn = document.getElementById("menuBtnToggle");
-        
-        drawer.classList.toggle("open");
-        
-        if(drawer.classList.contains("open")) {
-            overlay.style.display = "block";
-            menuBtn.classList.add("active-icon");
-        } else {
-            overlay.style.display = "none";
-            menuBtn.classList.remove("active-icon");
-        }
-    }
-
-    function renderDrawerContent(orderedPages) {
-        const drawerMenu = document.getElementById("drawerDynamicMenu");
-        drawerMenu.innerHTML = "";
-        const currentPageData = orderedPages.find(p => p.file === currentFileName);
-        if (currentPageData && currentPageData.title) {
-            document.getElementById("pageMainHeader").innerText = currentPageData.title;
-            if(document.getElementById("drawerSideHeader")) document.getElementById("drawerSideHeader").innerText = currentPageData.title;
-            if(document.getElementById("pageContentTitle")) document.getElementById("pageContentTitle").innerText = currentPageData.title;
-            document.title = currentPageData.title;
-        }
-        orderedPages.forEach(page => {
-            const li = document.createElement("li");
-            li.className = "drawer-item";
-            li.innerHTML = "<span>" + page.title + "</span>";
-            li.onclick = () => {
-                if (typeof Android !== "undefined" && Android.openLocalPage) {
-                    Android.openLocalPage(page.file);
-                } else {
-                    window.location.href = page.file;
-                }
-            };
-            drawerMenu.appendChild(li);
-        });
-    }
-
-    async function loadGlobalVars() {
-        try {
-            const res = await fetch("var.json");
-            if(res.ok) {
-                const data = await res.json();
-                const styleEl = document.createElement("style");
-                let cssStr = ":root {\n";
-                for(let k in data.light) { cssStr += `  ${k}: ${data.light[k]};\n`; }
-                cssStr += "}\n[data-user-theme='dark'] {\n";
-                for(let k in data.dark) { cssStr += `  ${k}: ${data.dark[k]};\n`; }
-                cssStr += "}";
-                styleEl.innerHTML = cssStr;
-                document.head.appendChild(styleEl);
-            }
-        } catch(e) { console.log("خطأ في تطبيق المتغيرات العامة"); }
-    }
-
-    async function initDrawer() {
-        initUserTheme();
-        await loadGlobalVars();
-        const loader = document.getElementById("drawerLoader");
-        let loadedSuccessfully = false;
-        try {
-            if (typeof Android !== "undefined" && Android.readLocalFile) {
-                const localData = Android.readLocalFile("order.json");
-                if (localData && localData.trim() !== "") {
-                    const orderedPages = JSON.parse(localData);
-                    renderDrawerContent(orderedPages);
-                    loadedSuccessfully = true;
-                }
-            }
-            if (!loadedSuccessfully) {
-                const res = await fetch(`order.json`);
-                if (res.ok) {
-                    const orderedPages = await res.json();
-                    renderDrawerContent(orderedPages);
-                    loadedSuccessfully = true;
-                } else { throw new Error(); }
-            }
-        } catch(e) { 
-            if (!loadedSuccessfully) {
-                try {
-                    const resAlt = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/order.json`);
-                    const dataAlt = await resAlt.json();
-                    const decodedContent = decodeURIComponent(escape(atob(dataAlt.content.replace(/\s/g, ""))));
-                    renderDrawerContent(JSON.parse(decodedContent));
-                } catch(err) { console.log("خطأ في جلب الهيدر"); }
-            }
-        } finally {
-            if(loader) loader.style.display = "none";
-        }
-    }
-    initDrawer();
-</script>
 </body>
 </html>
