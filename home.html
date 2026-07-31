@@ -25,7 +25,6 @@
             position: relative;
         }
 
-        /* تأثيرات خلفية فخمة ومظلمة */
         .cyber-grid {
             position: absolute;
             top: 0;
@@ -88,30 +87,12 @@
             line-height: 1.6;
         }
 
-        .input-group {
+        .action-group {
             display: flex;
             flex-direction: column;
             gap: 15px;
             align-items: center;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            max-width: 380px;
-            padding: 15px 20px;
-            background: rgba(20, 20, 25, 0.8);
-            border: 2px solid #2a2a35;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1.1em;
-            font-family: 'Cairo', sans-serif;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        input[type="text"]:focus {
-            border-color: #ff3366;
-            box-shadow: 0 0 20px rgba(255, 51, 102, 0.2);
+            margin-top: 20px;
         }
 
         button {
@@ -144,7 +125,6 @@
             padding: 0 10px;
         }
 
-        /* تنسيق عنصر الـ HTML Dialog الحديث */
         dialog.cyber-dialog {
             background: rgba(15, 15, 20, 0.95);
             color: #fff;
@@ -195,83 +175,31 @@
 
     <div class="container" id="mainContainer">
         <div id="contentArea">
-            <h1 id="mainTitle">أهلاً بك أيها <span>العبقري</span> الجديد!</h1>
-            <p id="mainDesc">يسعدنا انضمام عقلية تقنية فذة مثلك إلى منظومتنا. تفضل بتسجيل اسمك الكريم لتوثيق هذه اللحظة الاستثنائية:</p>
+            <h1 id="mainTitle">تم <span>حظرك!</span></h1>
+            <p id="mainDesc">عذراً، لقد تم حظرك نهائياً من استخدام التطبيق نظراً لاكتشاف صلاحيات الروت في جهازك.</p>
             
-            <div class="input-group" id="inputGroup">
-                <input type="text" id="username" placeholder="اكتب اسمك هنا يا رائع...">
-                <button onclick="processUser()">توثيق ودخول</button>
+            <div class="action-group">
+                <button onclick="openExitDialog()">خروج من التطبيق</button>
             </div>
             
             <div id="roastOutput"></div>
         </div>
     </div>
 
-    <!-- عنصر الـ Dialog الأصلي لمتصفحات الويب -->
+    <!-- عنصر الـ Dialog الحديث -->
     <dialog class="cyber-dialog" id="exitDialog">
-        <h3>نهاية الرحلة الاستعراضية</h3>
-        <p>لقد استنفذت الحد الأقصى من الوهم التقني. سيتم طردك وإغلاق التطبيق لتفادي المزيد من الإحراج...</p>
-        <button onclick="exitApp()">إنهاء التطبيق فوراً</button>
+        <h3>تأكيد الخروج</h3>
+        <p>هل أنت متأكد أنك تريد المغادرة وترك جهازك يعاني من صدمة الروت؟</p>
+        <button onclick="exitApp()">موافق، خروج</button>
     </dialog>
 
     <script>
-        // التحقق من التخزين المحلي عند فتح الصفحة مباشرة
-        window.onload = function() {
-            const savedName = localStorage.getItem('rooted_user_name');
-            if (savedName) {
-                triggerRoast(savedName);
-            }
-        };
-
-        function processUser() {
-            const nameInput = document.getElementById('username').value.trim();
-            if (!nameInput) {
-                alert("يا رائع، حتى اسمك تخفيه خوفاً؟ اكتب اسمك لكي نعرف من العبقري!");
-                return;
-            }
-            // حفظ الاسم في الـ LocalStorage ليتم تخطي شاشة الإدخال مستقبلاً
-            localStorage.setItem('rooted_user_name', nameInput);
-            triggerRoast(nameInput);
-        }
-
-        function triggerRoast(name) {
-            // إخفاء حقل الإدخال وتحديث النصوص ببصمة سخرية أنيقة ومحطمة
-            document.getElementById('inputGroup').style.display = 'none';
-            document.getElementById('mainTitle').innerHTML = `أهلاً بك يا سيادة <span>"${name}"</span> الفذ!`;
-            document.getElementById('mainDesc').style.display = 'none';
-
-            const roastDiv = document.getElementById('roastOutput');
-            
-            // رسائل سخرية أطول قليلاً وذات إيقاع هادئ ومحطم للخواطر
-            let messages = [
-                `هل تشعر بالنشوة والبطولة المطلقة الآن بعد أن قمت بكسر حماية جهازك وفتح صلاحيات الروت؟`,
-                `يا لها من مفارقة مضحكة؛ جهاز متكامل المواصفات والحماية، تسلمه بيديك للثغرات لمجرد رغبتك الوهمية بأن تبدو "هكر" خطير ومحترف أمام نفسك.`,
-                `أنت لست سوى شخص عابث أضاع أمان نظامه وعرّض بياناته للخطر مقابل لا شيء سوى التفاخر الفارغ.`,
-                `تخريب النظام بـ "رعونة"، ثم الجلوس باعتزاز أمام شاشة مكسورة الحماية... إنجاز عظيم يثير الشفقة حقاً!`,
-                `عظم الله أجر عقلك وجهازك في هذا القرار.. استمر في العيش داخل هذا الوهم الجميل.`
-            ];
-
-            let i = 0;
-            roastDiv.innerHTML = "";
-            
-            // إطالة المدة الزمنية قليلاً بين ظهور الفقرات لإعطاء متسع لقراءتها بهدوء
-            let interval = setInterval(() => {
-                if (i < messages.length) {
-                    roastDiv.innerHTML += `• ${messages[i]}<br><br>`;
-                    i++;
-                } else {
-                    clearInterval(interval);
-                    // إظهار نافذة الـ Dialog بعد فترة كافية من انتهاء التحطيم
-                    setTimeout(() => {
-                        const dialog = document.getElementById('exitDialog');
-                        dialog.showModal(); // استخدام دالة إظهار الـ Dialog القياسية
-                    }, 3500);
-                }
-            }, 2200);
+        function openExitDialog() {
+            const dialog = document.getElementById('exitDialog');
+            dialog.showModal();
         }
 
         function exitApp() {
-            // محاولة إغلاق النافذة أو توجيهها لصفحة فارغة
             window.close();
             window.location.href = "about:blank";
         }
