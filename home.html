@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منظومة التحطيم الشامل - Root Detected</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -12,9 +14,9 @@
         }
 
         body {
-            background-color: #050505;
-            color: #00ff66;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: #030303;
+            color: #ff3366;
+            font-family: 'Cairo', sans-serif;
             height: 100vh;
             overflow: hidden;
             display: flex;
@@ -23,175 +25,181 @@
             position: relative;
         }
 
-        /* تأثير الشاشة المخترقة والتشويش */
-        .glitch-bg {
+        /* تأثيرات خلفية فخمة ومظلمة */
+        .cyber-grid {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 4px, 6px 100%;
+            background-image: linear-gradient(rgba(255, 0, 51, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 0, 51, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 1;
             pointer-events: none;
-            z-index: 10;
         }
 
-        .matrix-rain {
+        .ambient-glow {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.15;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 0, 51, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 2;
             pointer-events: none;
-            z-index: 1;
-            font-size: 14px;
-            color: #ff0033;
-            overflow: hidden;
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
         }
 
         .container {
             position: relative;
-            z-index: 20;
+            z-index: 10;
             text-align: center;
             width: 90%;
-            max-width: 600px;
-            padding: 40px;
-            background: rgba(10, 0, 0, 0.85);
-            border: 2px solid #ff0033;
-            box-shadow: 0 0 30px rgba(255, 0, 51, 0.5), inset 0 0 20px rgba(255, 0, 51, 0.2);
-            animation: shake 0.2s infinite;
-            animation-play-state: paused;
-        }
-
-        .container.active-shake {
-            animation-play-state: running;
-        }
-
-        @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            20% { transform: translate(-2px, -22px) rotate(-1deg); }
-            40% { transform: translate(-1px, 2px) rotate(1deg); }
-            60% { transform: translate(3px, 1px) rotate(0deg); }
-            80% { transform: translate(1px, -1px) rotate(1deg); }
-            100% { transform: translate(-1px, 2px) rotate(-1deg); }
+            max-width: 550px;
+            padding: 45px 30px;
+            background: rgba(12, 12, 15, 0.9);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 51, 102, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         h1 {
-            color: #00ff66;
-            font-size: 2em;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #00ff66;
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: 900;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        h1 span {
+            color: #ff3366;
+            text-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
         }
 
         p {
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            color: #ccc;
+            font-size: 1.05em;
+            margin-bottom: 25px;
+            color: #8a8a93;
+            line-height: 1.6;
         }
 
         .input-group {
-            margin-bottom: 20px;
-        }
-
-        input[type="text"] {
-            width: 80%;
-            padding: 12px;
-            background: #000;
-            border: 1px solid #00ff66;
-            color: #00ff66;
-            font-size: 1.2em;
-            text-align: center;
-            outline: none;
-            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
-            transition: 0.3s;
-        }
-
-        input[type="text"]:focus {
-            border-color: #ff0033;
-            box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
-        }
-
-        button {
-            padding: 12px 30px;
-            background: #00ff66;
-            color: #000;
-            border: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 0 10px #00ff66;
-        }
-
-        button:hover {
-            background: #ff0033;
-            color: #fff;
-            box-shadow: 0 0 20px #ff0033;
-        }
-
-        #roastOutput {
-            font-size: 1.2em;
-            color: #ff3333;
-            line-height: 1.6;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-            margin-top: 20px;
-        }
-
-        /* نافذة الـ Dialog المنبثقة للتدمير والخروج */
-        .custom-dialog {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 100;
-            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             align-items: center;
         }
 
-        .dialog-content {
-            background: #110000;
-            border: 3px solid #ff0033;
-            padding: 30px;
+        input[type="text"] {
+            width: 100%;
+            max-width: 380px;
+            padding: 15px 20px;
+            background: rgba(20, 20, 25, 0.8);
+            border: 2px solid #2a2a35;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.1em;
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #ff3366;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.2);
+        }
+
+        button {
+            padding: 14px 35px;
+            background: linear-gradient(135deg, #ff3366, #ff0033);
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 51, 102, 0.4);
+            width: 100%;
+            max-width: 380px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 51, 102, 0.6);
+        }
+
+        #roastOutput {
+            font-size: 1.15em;
+            color: #ff6685;
+            line-height: 1.8;
+            margin-top: 15px;
+            text-align: right;
+            padding: 0 10px;
+        }
+
+        /* تنسيق عنصر الـ HTML Dialog الحديث */
+        dialog.cyber-dialog {
+            background: rgba(15, 15, 20, 0.95);
+            color: #fff;
+            border: 2px solid #ff3366;
+            border-radius: 20px;
+            padding: 35px;
+            width: 90%;
+            max-width: 420px;
             text-align: center;
-            width: 80%;
-            max-width: 400px;
-            box-shadow: 0 0 50px #ff0033;
+            box-shadow: 0 0 50px rgba(255, 51, 102, 0.4);
+            backdrop-filter: blur(15px);
+            margin: auto;
+            animation: dialogPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .dialog-content h3 {
-            color: #ff0033;
+        dialog.cyber-dialog::backdrop {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes dialogPop {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .cyber-dialog h3 {
+            color: #ff3366;
+            font-size: 1.6em;
             margin-bottom: 15px;
-            font-size: 1.5em;
         }
 
-        .dialog-content p {
-            color: #fff;
-            margin-bottom: 20px;
+        .cyber-dialog p {
+            color: #b0b0bc;
+            margin-bottom: 25px;
+            font-size: 1.1em;
         }
 
-        .dialog-content button {
-            background: #ff0033;
-            color: #fff;
+        .cyber-dialog button {
+            background: #ff3366;
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <div class="glitch-bg"></div>
-    <div class="matrix-rain" id="matrixRain"></div>
+    <div class="cyber-grid"></div>
+    <div class="ambient-glow"></div>
 
     <div class="container" id="mainContainer">
         <div id="contentArea">
-            <h1 id="mainTitle">مرحباً بك أيها العبقري الجديد!</h1>
-            <p id="mainDesc">نحن سعادتي غامرة بانضمام عقلية فذة مثلك إلى نظامنا المتميز. يرجى إدخال اسمك الكريم لتوثيق هذا اليوم التاريخي:</p>
+            <h1 id="mainTitle">أهلاً بك أيها <span>العبقري</span> الجديد!</h1>
+            <p id="mainDesc">يسعدنا انضمام عقلية تقنية فذة مثلك إلى منظومتنا. تفضل بتسجيل اسمك الكريم لتوثيق هذه اللحظة الاستثنائية:</p>
             
             <div class="input-group" id="inputGroup">
                 <input type="text" id="username" placeholder="اكتب اسمك هنا يا رائع...">
-                <br><br>
                 <button onclick="processUser()">توثيق ودخول</button>
             </div>
             
@@ -199,40 +207,15 @@
         </div>
     </div>
 
-    <!-- نافذة الـ Dialog النهائية -->
-    <div class="custom-dialog" id="exitDialog">
-        <div class="dialog-content">
-            <h3>تنبيه أمني خطير!</h3>
-            <p>لقد تجاوزت الحد الأقصى من التخلف التقني. جارٍ طردك وتدمير ما تبقى من كرامتك الرقمية...</p>
-            <button onclick="exitApp()">إغلاق التطبيق فوراً</button>
-        </div>
-    </div>
+    <!-- عنصر الـ Dialog الأصلي لمتصفحات الويب -->
+    <dialog class="cyber-dialog" id="exitDialog">
+        <h3>نهاية الرحلة الاستعراضية</h3>
+        <p>لقد استنفذت الحد الأقصى من الوهم التقني. سيتم طردك وإغلاق التطبيق لتفادي المزيد من الإحراج...</p>
+        <button onclick="exitApp()">إنهاء التطبيق فوراً</button>
+    </dialog>
 
     <script>
-        // تأثير مطر الكود في الخلفية لزيادة جو الاختراق
-        const matrixRain = document.getElementById('matrixRain');
-        const chars = "ROOT_SYS_CRASH_010101_SECURITY_BREACH_WARNING_FAIL";
-        setInterval(() => {
-            let span = document.createElement('div');
-            span.style.position = 'absolute';
-            span.style.left = Math.random() * window.innerWidth + 'px';
-            span.style.top = '-20px';
-            span.style.color = Math.random() > 0.5 ? '#ff0033' : '#00ff66';
-            span.innerText = chars[Math.floor(Math.random() * chars.length)];
-            matrixRain.appendChild(span);
-            
-            let fall = setInterval(() => {
-                let top = parseInt(span.style.top);
-                if (top > window.innerHeight) {
-                    span.remove();
-                    clearInterval(fall);
-                } else {
-                    span.style.top = (top + 5) + 'px';
-                }
-            }, 50);
-        }, 100);
-
-        // التحقق من التخزين المحلي عند فتح الصفحة
+        // التحقق من التخزين المحلي عند فتح الصفحة مباشرة
         window.onload = function() {
             const savedName = localStorage.getItem('rooted_user_name');
             if (savedName) {
@@ -243,52 +226,52 @@
         function processUser() {
             const nameInput = document.getElementById('username').value.trim();
             if (!nameInput) {
-                alert("يا رائع، حتى اسمك تخفيه خوفاً؟ اكتب اسمك!");
+                alert("يا رائع، حتى اسمك تخفيه خوفاً؟ اكتب اسمك لكي نعرف من العبقري!");
                 return;
             }
-            // حفظ الاسم في الـ LocalStorage لكي لا يظهر حقل الإدخال مرة أخرى
+            // حفظ الاسم في الـ LocalStorage ليتم تخطي شاشة الإدخال مستقبلاً
             localStorage.setItem('rooted_user_name', nameInput);
             triggerRoast(nameInput);
         }
 
         function triggerRoast(name) {
-            // إخفاء حقل الإدخال وتغيير الواجهة لتصبح مخترقة ومشمئزة
+            // إخفاء حقل الإدخال وتحديث النصوص ببصمة سخرية أنيقة ومحطمة
             document.getElementById('inputGroup').style.display = 'none';
-            document.getElementById('mainTitle').innerText = "تحذير: نظام مخترق وعفن!";
+            document.getElementById('mainTitle').innerHTML = `أهلاً بك يا سيادة <span>"${name}"</span> الفذ!`;
             document.getElementById('mainDesc').style.display = 'none';
-            
-            // تفعيل تأثير الاهتزاز والتشويش الشديد
-            document.getElementById('mainContainer').classList.add('active-shake');
 
             const roastDiv = document.getElementById('roastOutput');
             
+            // رسائل سخرية أطول قليلاً وذات إيقاع هادئ ومحطم للخواطر
             let messages = [
-                `أهلاً بك يا سيادة "الرائع" الفذ... ${name}!`,
-                `هل تحس بالنشوة الآن بعد أن فتحت صلاحيات الروت وظننت نفسك هكر العصر؟`,
-                `يا لها من مسخرة، جهاز بكامل عتاده وحمايته ترسله إلى الهاوية لمجرد أنك شخص عابث وفاشل لا يمتلك أي ذرة تفكير سليم!`,
-                `تخريب النظام، انتهاك الأمان، والجلوس بافتخار أمام شاشة ممزقة... إنجاز يثير الغثيان حقاً.`,
-                `أنت لست سوى نكتة سمجة يتندر عليها المطورون.. عظم الله أجر جهازك فيك!`
+                `هل تشعر بالنشوة والبطولة المطلقة الآن بعد أن قمت بكسر حماية جهازك وفتح صلاحيات الروت؟`,
+                `يا لها من مفارقة مضحكة؛ جهاز متكامل المواصفات والحماية، تسلمه بيديك للثغرات لمجرد رغبتك الوهمية بأن تبدو "هكر" خطير ومحترف أمام نفسك.`,
+                `أنت لست سوى شخص عابث أضاع أمان نظامه وعرّض بياناته للخطر مقابل لا شيء سوى التفاخر الفارغ.`,
+                `تخريب النظام بـ "رعونة"، ثم الجلوس باعتزاز أمام شاشة مكسورة الحماية... إنجاز عظيم يثير الشفقة حقاً!`,
+                `عظم الله أجر عقلك وجهازك في هذا القرار.. استمر في العيش داخل هذا الوهم الجميل.`
             ];
 
             let i = 0;
             roastDiv.innerHTML = "";
             
+            // إطالة المدة الزمنية قليلاً بين ظهور الفقرات لإعطاء متسع لقراءتها بهدوء
             let interval = setInterval(() => {
                 if (i < messages.length) {
-                    roastDiv.innerHTML += messages[i] + "<br><br>";
+                    roastDiv.innerHTML += `• ${messages[i]}<br><br>`;
                     i++;
                 } else {
                     clearInterval(interval);
-                    // بعد انتهاء رسائل التحطيم بمدّة (مثلاً 5 ثواني)، تظهر نافذة الـ Dialog لتخرج من التطبيق
+                    // إظهار نافذة الـ Dialog بعد فترة كافية من انتهاء التحطيم
                     setTimeout(() => {
-                        document.getElementById('exitDialog').style.display = 'flex';
-                    }, 4000);
+                        const dialog = document.getElementById('exitDialog');
+                        dialog.showModal(); // استخدام دالة إظهار الـ Dialog القياسية
+                    }, 3500);
                 }
-            }, 1200);
+            }, 2200);
         }
 
         function exitApp() {
-            // محاولة إغلاق النافذة أو توجيهها لصفحة فارغة/خروج
+            // محاولة إغلاق النافذة أو توجيهها لصفحة فارغة
             window.close();
             window.location.href = "about:blank";
         }
