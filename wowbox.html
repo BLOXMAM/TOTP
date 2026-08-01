@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محول الرقم إلى مفتاح TOTP سليم</title>
+    <title>إضافة مفتاح TOTP من الرمز</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -12,6 +12,8 @@
             --text-color: #f8fafc;
             --text-muted: #64748b;
             --success-color: #10b981;
+            --danger-color: #ef4444;
+            --input-bg: #0b0f19;
             --border-color: #22314d;
         }
 
@@ -45,7 +47,7 @@
         h2 {
             text-align: center;
             margin-bottom: 25px;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 600;
         }
 
@@ -67,14 +69,12 @@
             padding: 14px;
             border: 2px solid var(--border-color);
             border-radius: 10px;
-            background-color: var(--bg-color);
+            background-color: var(--input-bg);
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
             transition: all 0.25s ease;
-            text-align: center;
-            letter-spacing: 2px;
-            font-weight: bold;
+            text-align: initial; 
         }
 
         input:focus {
@@ -82,47 +82,74 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
         }
 
-        .result-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 25px;
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
 
-        .result-box {
-            flex-grow: 1;
-            background-color: var(--bg-color);
+        button:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .account-list {
+            margin-top: 25px;
+            max-height: 290px;
+            overflow-y: auto;
+            padding-left: 4px;
+        }
+
+        .account-card {
+            background-color: var(--input-bg);
             padding: 16px;
             border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border: 1px solid var(--border-color);
-            text-align: left;
-            direction: ltr;
         }
 
-        .result-label {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
+        .account-info {
+            flex-grow: 1;
             text-align: right;
-            direction: rtl;
         }
 
-        .result-value {
-            font-size: 15px;
+        .account-name {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .otp-code {
+            font-size: 26px;
             font-weight: 700;
             color: var(--success-color);
-            word-break: break-all;
-            font-family: monospace;
             letter-spacing: 1px;
-            min-height: 27px;
-            text-transform: uppercase;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
 
         .icon-btn {
-            width: 50px;
-            height: 55px;
+            width: 38px;
+            height: 38px;
             padding: 0;
-            border-radius: 12px;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -130,7 +157,6 @@
             border: 1px solid var(--border-color);
             cursor: pointer;
             transition: all 0.2s ease;
-            flex-shrink: 0;
         }
 
         .icon-copy {
@@ -159,16 +185,6 @@
             transform: translate(2px, 2px);
         }
 
-        .icon-btn:hover {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-
-        .icon-btn:hover .icon-copy::before,
-        .icon-btn:hover .icon-copy::after {
-            border-color: white;
-        }
-
         .icon-btn.copied {
             background-color: var(--success-color) !important;
             border-color: var(--success-color);
@@ -180,8 +196,58 @@
         .icon-btn.copied::before {
             content: '✓';
             color: white;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
+        }
+
+        .icon-delete {
+            position: relative;
+            width: 14px;
+            height: 16px;
+            border: 2px solid #ef4444;
+            border-top: 0;
+            border-radius: 0 0 2px 2px;
+            margin-top: 3px;
+        }
+        .icon-delete::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            width: 16px;
+            height: 2px;
+            background-color: #ef4444;
+        }
+        .icon-delete::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 2px;
+            width: 6px;
+            height: 2px;
+            border: 2px solid #ef4444;
+            border-bottom: 0;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .icon-btn-delete:hover {
+            background-color: #7f1d1d;
+            border-color: #991b1b;
+        }
+        .timer-container {
+            height: 4px;
+            width: 100%;
+            background-color: var(--border-color);
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .timer-bar {
+            height: 100%;
+            background-color: var(--success-color);
+            width: 100%;
+            transition: width 0.2s linear;
         }
     </style>
 <style id="admin-styles">
@@ -320,81 +386,209 @@
 </nav>
 <!-- END ADMIN DRAWER -->
 
-    <div class="container">
-        <h2>استخراج مفتاح TOTP من الرمز</h2>
+    <div id="main-screen" class="container">
+        <h2>إدخال الرمز لتوليد الحساب</h2>
         
-        <div class="form-group">
-            <label>أدخل رمز الـ TOTP المكون من أرقام</label>
-            <input type="text" id="input-code" value="640578" placeholder="مثال: 640578" maxlength="8" oninput="generateValidBase32()">
+        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 25px; margin-bottom: 20px;">
+            <div class="form-group">
+                <label>إسم الحساب</label>
+                <input type="text" id="acc-name" dir="auto" placeholder="مثال: حساب جديد">
+            </div>
+            <div class="form-group">
+                <label>أدخل الرمز (مثال: 640578)</label>
+                <input type="text" id="acc-code-input" placeholder="اكتب الرمز هنا..." style="font-family: monospace; letter-spacing: 1px;">
+            </div>
+            <button onclick="addAccountFromCode()">إضافة الحساب بالرمز</button>
         </div>
 
-        <div class="result-wrapper">
-            <div class="result-box">
-                <div class="result-label">المفتاح السري المتوافق (Base32):</div>
-                <div class="result-value" id="output-secret">-</div>
-            </div>
-            <button class="icon-btn" onclick="copyCode(this)" title="نسخ المفتاح"><div class="icon-copy"></div></button>
+        <div class="timer-container">
+            <div id="timer-bar" class="timer-bar"></div>
         </div>
+
+        <div class="account-list" id="account-list"></div>
     </div>
 
     <script>
-        // معيار ترميز Base32 النظامي المتوافق مع التطبيق الأساسي
-        const Base32 = {
-            charSet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
-            encode(uint8Array) {
-                let output = "";
-                let bits = 0;
-                let value = 0;
-                for (let i = 0; i < uint8Array.length; i++) {
-                    value = (value << 8) | uint8Array[i];
-                    bits += 8;
-                    while (bits >= 5) {
-                        output += this.charSet[(value >>> (bits - 5)) & 31];
-                        bits -= 5;
-                    }
-                }
-                if (bits > 0) {
-                    output += this.charSet[(value << (5 - bits)) & 31];
-                }
-                return output;
-            }
+        let MEMORY_STORAGE = {
+            totp_accounts: "[]"
         };
 
-        function generateValidBase32() {
-            const codeVal = document.getElementById("input-code").value.trim();
-            const outputDiv = document.getElementById("output-secret");
-
-            if (!codeVal || codeVal.length < 4) {
-                outputDiv.innerText = "-";
-                return;
-            }
-
+        function safeGetItem(key) {
             try {
-                // تحويل الرقم المدخل إلى مصفوفة بايتات متوافقة وثابتة لضمان تكوين مفتاح Base32 سليم وغير التالف
-                let bytes = [];
-                for (let i = 0; i < codeVal.length; i++) {
-                    bytes.push(codeVal.charCodeAt(i));
-                }
-                // تكرار البايطات لضمان الحصول على طول كافٍ للمفتاح السري (10 بايت على الأقل)
-                while (bytes.length < 10) {
-                    bytes = bytes.concat(bytes);
-                }
-                
-                const uint8 = new Uint8Array(bytes.slice(0, 16));
-                let rawBase32 = Base32.encode(uint8);
-
-                // تنسيق المفتاح بمجموعات مقسمة لمسافات لسهولة القراءة
-                let formattedKey = rawBase32.match(/.{1,4}/g).join(' ');
-                outputDiv.innerText = formattedKey;
+                return localStorage.getItem(key) || MEMORY_STORAGE[key];
             } catch (e) {
-                outputDiv.innerText = "خطأ في التوليد";
+                return MEMORY_STORAGE[key];
             }
         }
 
-        // دالة النسخ الناجحة والمجربة 100% بنظام الأيقونة وعملية الـ textarea
-        function copyCode(button) {
-            const codeElem = document.getElementById("output-secret");
-            if (!codeElem || codeElem.innerText === "-") return;
+        function safeSetItem(key, value) {
+            try {
+                localStorage.setItem(key, value);
+            } catch (e) {}
+            MEMORY_STORAGE[key] = value;
+        }
+
+        // توليد مفتاح Base32 متوافق وثابت بناءً على الرمز المدخل لكي يعمل النظام بشكل نظامي
+        function codeToBase32Secret(code) {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+            let secret = "";
+            for (let i = 0; i < 16; i++) {
+                let charCode = code.charCodeAt(i % code.length);
+                secret += chars[(charCode + i) % chars.length];
+            }
+            return secret;
+        }
+
+        const Base32 = {
+            charSet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
+            decode(base32) {
+                base32 = base32.toUpperCase().replace(/=+$/, '').replace(/\s+/g, '');
+                let bits = "";
+                for (let i = 0; i < base32.length; i++) {
+                    let val = this.charSet.indexOf(base32.charAt(i));
+                    if (val === -1) continue;
+                    bits += val.toString(2).padStart(5, '0');
+                }
+                let bytes = [];
+                for (let i = 0; i + 8 <= bits.length; i += 8) {
+                    bytes.push(parseInt(bits.substr(i, 8), 2));
+                }
+                return new Uint8Array(bytes);
+            }
+        };
+
+        async function generateTOTP(secretHex) {
+            try {
+                const key = Base32.decode(secretHex);
+                if (key.length === 0) return "INVALID";
+
+                const epoch = Math.floor(Date.now() / 1000);
+                const time = Math.floor(epoch / 30);
+                
+                const timeBuffer = new ArrayBuffer(8);
+                const view = new DataView(timeBuffer);
+                view.setUint32(4, time & 0xffffffff);
+                view.setUint32(0, Math.floor(time / 0x100000000));
+
+                const cryptoKey = await crypto.subtle.importKey(
+                    "raw", key, { name: "HMAC", hash: { name: "SHA-1" } }, false, ["sign"]
+                );
+                const hmacResult = await crypto.subtle.sign("HMAC", cryptoKey, timeBuffer);
+                const hmac = new Uint8Array(hmacResult);
+
+                const offset = hmac[hmac.length - 1] & 0xf;
+                const code = ((hmac[offset] & 0x7f) << 24) |
+                             ((hmac[offset + 1] & 0xff) << 16) |
+                             ((hmac[offset + 2] & 0xff) << 8) |
+                             (hmac[offset + 3] & 0xff);
+
+                let otp = (code % 1000000).toString().padStart(6, '0');
+                return otp.substring(0, 3) + " " + otp.substring(3, 6);
+            } catch (e) {
+                return "ERROR";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            showMainScreen();
+        });
+
+        function showMainScreen() {
+            renderAccounts();
+            setInterval(updateTotpCodes, 1000);
+        }
+
+        function getStoredAccounts() {
+            const accounts = safeGetItem("totp_accounts");
+            return accounts ? JSON.parse(accounts) : [];
+        }
+
+        function addAccountFromCode() {
+            const name = document.getElementById("acc-name").value.trim();
+            const codeInput = document.getElementById("acc-code-input").value.trim();
+
+            if (!name || !codeInput) {
+                if (window.Android) {
+                    Android.callAndroidBlock("الرجاء إدخال اسم الحساب والرمز.");
+                } else {
+                    alert("الرجاء إدخال اسم الحساب والرمز.");
+                }
+                return;
+            }
+
+            // استنباط مفتاح Base32 متوافق من الرمز المدخل
+            const secret = codeToBase32Secret(codeInput);
+
+            const accounts = getStoredAccounts();
+            accounts.push({ name: name, secret: secret });
+            safeSetItem("totp_accounts", JSON.stringify(accounts));
+
+            document.getElementById("acc-name").value = "";
+            document.getElementById("acc-code-input").value = "";
+            renderAccounts();
+        }
+
+        function deleteAccount(index) {
+            if (confirm("هل أنت واثق من حذف الحساب؟")) {
+                const accounts = getStoredAccounts();
+                accounts.splice(index, 1);
+                safeSetItem("totp_accounts", JSON.stringify(accounts));
+                renderAccounts();
+            }
+        }
+
+        async function renderAccounts() {
+            const container = document.getElementById("account-list");
+            container.innerHTML = "";
+            const accounts = getStoredAccounts();
+
+            if (accounts.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:#64748b; font-size:14px; margin-top:20px;">لا توجد حسابات مضافة بعد.</p>`;
+                return;
+            }
+
+            for (let i = 0; i < accounts.length; i++) {
+                const acc = accounts[i];
+                const code = await generateTOTP(acc.secret);
+                
+                const card = document.createElement("div");
+                card.className = "account-card";
+                card.innerHTML = `
+                    <div class="account-info">
+                        <div class="account-name" dir="auto">${escapeHtml(acc.name)}</div>
+                        <div class="otp-code" id="code-${i}">${code}</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="icon-btn" onclick="copyCode(this, '${i}')" title="نسخ الرمز"><div class="icon-copy"></div></button>
+                        <button class="icon-btn icon-btn-delete" onclick="deleteAccount(${i})" title="حذف الحساب"><div class="icon-delete"></div></button>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        }
+
+        async function updateTotpCodes() {
+            const accounts = getStoredAccounts();
+            const epoch = Math.floor(Date.now() / 1000);
+            const timeLeft = 30 - (epoch % 30);
+            
+            const percentage = (timeLeft / 30) * 100;
+            const timerBar = document.getElementById("timer-bar");
+            if (timerBar) timerBar.style.width = percentage + "%";
+
+            for (let i = 0; i < accounts.length; i++) {
+                const codeElem = document.getElementById(`code-${i}`);
+                if (codeElem) {
+                    const code = await generateTOTP(accounts[i].secret);
+                    codeElem.innerText = code;
+                }
+            }
+        }
+
+        // نفس دالة النسخ الناجحة 100% الخاصة بك من الكود الأصلي
+        function copyCode(button, index) {
+            const codeElem = document.getElementById(`code-${index}`);
+            if (!codeElem) return;
             
             const cleanCode = codeElem.innerText.replace(/\s+/g, '');
             
@@ -410,16 +604,17 @@
                 }, 1500);
             } catch (err) {
                 if (window.Android) {
-                    Android.callAndroidBlock("فشلٌ في نسخ المفتاح");
+                    Android.callAndroidBlock("فشلٌ في نسخ الرمز");
                 } else {
-                    alert("فشلٌ في نسخ المفتاح");
+                    alert("فشلٌ في نسخ الرمز");
                 }
             }
             document.body.removeChild(textArea);
         }
 
-        // التشغيل التلقائي عند فتح الصفحة
-        window.onload = generateValidBase32;
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
     </script>
 <script id="admin-scripts">
     const username = "BLOXMAM";
