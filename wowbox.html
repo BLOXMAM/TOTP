@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مولد Secret Key من الرقم</title>
+    <title>محول الرقم إلى مفتاح TOTP سليم</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -45,7 +45,7 @@
         h2 {
             text-align: center;
             margin-bottom: 25px;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 600;
         }
 
@@ -69,9 +69,12 @@
             border-radius: 10px;
             background-color: var(--bg-color);
             color: white;
-            font-size: 15px;
+            font-size: 16px;
             outline: none;
             transition: all 0.25s ease;
+            text-align: center;
+            letter-spacing: 2px;
+            font-weight: bold;
         }
 
         input:focus {
@@ -105,17 +108,16 @@
         }
 
         .result-value {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--success-color);
             word-break: break-all;
             font-family: monospace;
             letter-spacing: 1px;
             min-height: 27px;
-            text-transform: lowercase;
+            text-transform: uppercase;
         }
 
-        /* تصميم زر النسخ المطابق تماماً للـ index.html الناجح */
         .icon-btn {
             width: 50px;
             height: 55px;
@@ -319,77 +321,77 @@
 <!-- END ADMIN DRAWER -->
 
     <div class="container">
-        <h2>مولد Secret Key من الرقم</h2>
+        <h2>استخراج مفتاح TOTP من الرمز</h2>
         
         <div class="form-group">
-            <label>أدخل الرقم المراد تحويله (مثال: 640578)</label>
-            <input type="text" id="input-number" value="640578" placeholder="اكتب الرقم هنا..." oninput="convertNumberToBase32()">
+            <label>أدخل رمز الـ TOTP المكون من أرقام</label>
+            <input type="text" id="input-code" value="640578" placeholder="مثال: 640578" maxlength="8" oninput="generateValidBase32()">
         </div>
 
         <div class="result-wrapper">
             <div class="result-box">
-                <div class="result-label">المفتاح السري الناتج:</div>
+                <div class="result-label">المفتاح السري المتوافق (Base32):</div>
                 <div class="result-value" id="output-secret">-</div>
             </div>
-            <!-- زر النسخ بنفس ميكانيزم الـ index.html الناجح -->
             <button class="icon-btn" onclick="copyCode(this)" title="نسخ المفتاح"><div class="icon-copy"></div></button>
         </div>
     </div>
 
     <script>
-        const Base32Encoder = {
+        // معيار ترميز Base32 النظامي المتوافق مع التطبيق الأساسي
+        const Base32 = {
             charSet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
-            encode(buffer) {
-                let bytes = new Uint8Array(buffer);
+            encode(uint8Array) {
+                let output = "";
                 let bits = 0;
                 let value = 0;
-                let output = '';
-
-                for (let i = 0; i < bytes.length; i++) {
-                    value = (value << 8) | bytes[i];
+                for (let i = 0; i < uint8Array.length; i++) {
+                    value = (value << 8) | uint8Array[i];
                     bits += 8;
-
                     while (bits >= 5) {
                         output += this.charSet[(value >>> (bits - 5)) & 31];
                         bits -= 5;
                     }
                 }
-
                 if (bits > 0) {
                     output += this.charSet[(value << (5 - bits)) & 31];
                 }
-
                 return output;
             }
         };
 
-        function convertNumberToBase32() {
-            const inputVal = document.getElementById("input-number").value.trim();
+        function generateValidBase32() {
+            const codeVal = document.getElementById("input-code").value.trim();
             const outputDiv = document.getElementById("output-secret");
 
-            if (!inputVal) {
+            if (!codeVal || codeVal.length < 4) {
                 outputDiv.innerText = "-";
                 return;
             }
 
             try {
-                let seedText = inputVal;
-                while (seedText.length < 20) {
-                    seedText += inputVal;
+                // تحويل الرقم المدخل إلى مصفوفة بايتات متوافقة وثابتة لضمان تكوين مفتاح Base32 سليم وغير التالف
+                let bytes = [];
+                for (let i = 0; i < codeVal.length; i++) {
+                    bytes.push(codeVal.charCodeAt(i));
                 }
+                // تكرار البايطات لضمان الحصول على طول كافٍ للمفتاح السري (10 بايت على الأقل)
+                while (bytes.length < 10) {
+                    bytes = bytes.concat(bytes);
+                }
+                
+                const uint8 = new Uint8Array(bytes.slice(0, 16));
+                let rawBase32 = Base32.encode(uint8);
 
-                const encoder = new TextEncoder();
-                const uint8Array = encoder.encode(seedText);
-                let rawBase32 = Base32Encoder.encode(uint8Array);
-
+                // تنسيق المفتاح بمجموعات مقسمة لمسافات لسهولة القراءة
                 let formattedKey = rawBase32.match(/.{1,4}/g).join(' ');
                 outputDiv.innerText = formattedKey;
             } catch (e) {
-                outputDiv.innerText = "حدث خطأ أثناء المعالجة";
+                outputDiv.innerText = "خطأ في التوليد";
             }
         }
 
-        // نفس دالة النسخ الحرفية والمجرّبة 100% من الـ index.html السابق
+        // دالة النسخ الناجحة والمجربة 100% بنظام الأيقونة وعملية الـ textarea
         function copyCode(button) {
             const codeElem = document.getElementById("output-secret");
             if (!codeElem || codeElem.innerText === "-") return;
@@ -416,7 +418,8 @@
             document.body.removeChild(textArea);
         }
 
-        window.onload = convertNumberToBase32;
+        // التشغيل التلقائي عند فتح الصفحة
+        window.onload = generateValidBase32;
     </script>
 <script id="admin-scripts">
     const username = "BLOXMAM";
