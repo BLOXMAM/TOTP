@@ -60,19 +60,14 @@
 
   // =======================================================
   // 🧭 تحديد الصفحة المطلوبة من الرابط
-  // يدعم: example.com/home  و  example.com/?=home  و  example.com/?page=home
+  // القاعدة الوحيدة: لو فيه ?=اسم_الصفحة استخدمها، أي شيء غير ذلك (بدون أي قيد) → home مباشرة
+  // مثال: example.com/?=contact  → يفتح contact
+  //       example.com/  أو أي رابط بدون ?=  → يفتح home
   // =======================================================
   function getRequestedPage() {
-    const path = window.location.pathname.replace(/^\/+|\/+$/g, "");
-    if (path) return path.split("/")[0];
-
     const params = new URLSearchParams(window.location.search);
-    if (params.get("page")) return params.get("page");
-    if (params.has("")) return params.get(""); // يغطي صيغة ?=home
-
-    const rawSearch = window.location.search.replace(/^\?/, "");
-    if (rawSearch && rawSearch.indexOf("=") === -1) return rawSearch; // يغطي صيغة ?home
-
+    const value = params.get(""); // يلتقط صيغة ?=اسم_الصفحة تحديداً
+    if (value && value.trim()) return value.trim();
     return "home";
   }
 
