@@ -3,442 +3,221 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الموقع</title>
+<title>Loading…</title>
 <style>
-  :root{
-    --bg:#0f172a;
-    --card:#1e293b;
-    --border:#334155;
-    --text:#f8fafc;
-    --muted:#94a3b8;
-    --accent:#3b82f6;
-    --accent-2:#38bdf8;
-    --danger:#ef4444;
-    --warn:#f59e0b;
-  }
-  *{box-sizing:border-box;}
-  html,body{height:100%;margin:0;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Tahoma','Segoe UI',system-ui,-apple-system,sans-serif;
-  }
+  html, body { margin: 0; padding: 0; height: 100%; background: #0f172a; }
+  #app-root { width: 100%; height: 100vh; }
+  #app-root iframe { border: 0; width: 100%; height: 100vh; display: block; background: #fff; }
 
-  /* ===== شريط علوي بسيط (اختياري، فقط لعرض/اختبار التنقل بين الصفحات) ===== */
-  #topbar{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 16px;
-    background:#111827;
-    border-bottom:1px solid var(--border);
-    position:sticky;
-    top:0;
-    z-index:20;
+  /* شاشة التحميل الأولية */
+  #boot-loader {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: #0f172a; z-index: 9999;
   }
-  #topbar .nav-link{
-    color:var(--muted);
-    text-decoration:none;
-    font-size:13px;
-    padding:6px 12px;
-    border-radius:8px;
-    border:1px solid transparent;
-    cursor:pointer;
-    transition:all .15s ease;
+  #boot-loader .spinner {
+    width: 40px; height: 40px; border: 3px solid #334155; border-top-color: #38bdf8;
+    border-radius: 50%; animation: spin 0.8s linear infinite;
   }
-  #topbar .nav-link:hover{ color:var(--text); border-color:var(--border); }
-  #topbar .nav-link.active{ color:var(--text); background:var(--accent); }
-  #topbar .spacer{ flex:1; }
-  #topbar .repo-tag{ font-size:11px; color:#475569; }
-
-  /* ===== شريط تحميل علوي رفيع ===== */
-  #loading-bar{
-    position:fixed; top:0; left:0; height:3px; width:0%;
-    background:linear-gradient(90deg,var(--accent),var(--accent-2));
-    transition:width .25s ease, opacity .3s ease;
-    z-index:50;
-  }
-
-  /* ===== منطقة عرض الصفحة (iframe لكل صفحة كمستند مستقل، تمامًا كما كانت تُحمَّل ملفات html كاملة داخل الـ WebView) ===== */
-  #page-wrap{ position:relative; height:calc(100vh - 45px); }
-  #page-frame{
-    width:100%; height:100%; border:0; background:var(--bg);
-    opacity:0; transition:opacity .25s ease;
-  }
-  #page-frame.visible{ opacity:1; }
-
-  /* ===== شاشات الحالة: مغلق / صيانة / 404 ===== */
-  .status-screen{
-    height:calc(100vh - 45px);
-    display:flex; justify-content:center; align-items:center;
-    padding:20px;
-  }
-  .card{
-    background:var(--card); padding:30px 20px; border-radius:20px;
-    box-shadow:0 20px 25px -5px rgba(0,0,0,.5);
-    width:100%; max-width:400px; border:1px solid var(--border);
-    display:flex; flex-direction:column; align-items:center; text-align:center;
-  }
-  .app-logo{ max-width:90px; max-height:90px; margin-bottom:15px; border-radius:16px; object-fit:contain; }
-  .icon{ font-size:50px; margin-bottom:12px; }
-  .badge{
-    display:inline-block; color:#fff; font-size:13px; font-weight:bold;
-    padding:5px 14px; border-radius:50px; margin-bottom:15px;
-  }
-  .card h2{ margin:0 0 10px 0; font-size:20px; color:#fff; font-weight:700; }
-  .card p{ margin:0 0 15px 0; font-size:14px; color:var(--muted); line-height:1.6; word-wrap:break-word; }
-  .action-btn{
-    display:inline-block; width:80%; margin-top:15px; padding:12px 20px;
-    background:var(--accent); color:#fff; font-weight:bold; font-size:15px;
-    text-decoration:none; border-radius:12px; transition:background .3s;
-  }
-  .action-btn:hover{ background:#2563eb; }
-  .timer-box{ display:flex; justify-content:center; gap:8px; margin-top:15px; width:100%; }
-  .time-unit{ background:var(--bg); padding:8px; border-radius:10px; border:1px solid var(--border); min-width:55px; }
-  .time-unit span{ display:block; font-size:18px; font-weight:bold; color:var(--accent-2); }
-  .time-unit label{ font-size:10px; color:#64748b; }
-  .timer-done{ color:#10b981; font-weight:bold; }
-
-  #offline-pill{
-    position:fixed; bottom:14px; right:14px; background:#111827;
-    border:1px solid var(--border); color:var(--muted); font-size:12px;
-    padding:6px 12px; border-radius:999px; display:none; z-index:40;
-  }
-  #offline-pill.show{ display:block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
-  <div id="loading-bar"></div>
-
-  <div id="topbar">
-    <span class="nav-link" data-page="index">index</span>
-    <span class="nav-link" data-page="home">home</span>
-    <span class="nav-link" data-page="about">about</span>
-    <div class="spacer"></div>
-    <span class="repo-tag" id="repo-tag"></span>
-  </div>
-
-  <div id="page-wrap">
-    <iframe id="page-frame" title="page-content"></iframe>
-  </div>
-
-  <div id="offline-pill">غير متصل — يتم عرض نسخة مخزّنة محلياً</div>
+<div id="boot-loader"><div class="spinner"></div></div>
+<div id="app-root"></div>
 
 <script>
-(function(){
+(function () {
+  "use strict";
 
-  // ============================================================
-  // إعدادات الحساب والمستودع (نفس فكرة GITHUB_USER / GITHUB_REPO)
-  // ============================================================
-  const CONFIG = {
-    githubUser: "BLOXMAM",
-    githubRepo: "webv",
-    branch: "main",
-    defaultPage: "home"   // الصفحة الافتراضية إن لم يوجد باراميتر في الرابط
-  };
+  // === [إعدادات الحساب والمستودع] ===
+  const GITHUB_USER = "BLOXMAM";
+  const GITHUB_REPO = "webv";
+  const BRANCH = "main";
 
-  document.getElementById('repo-tag').textContent = CONFIG.githubUser + '/' + CONFIG.githubRepo;
+  // raw.githubusercontent يُستخدم لجلب JSON/نص (الحالة والإصدار)
+  const RAW_BASE = "https://raw.githubusercontent.com/" + GITHUB_USER + "/" + GITHUB_REPO + "/" + BRANCH + "/";
+  // jsDelivr يُستخدم لعرض صفحات HTML لأنه يرسل Content-Type صحيح لكل الملفات (css/js/images/fonts)
+  // بعكس raw.githubusercontent.com التي ترسل كل شيء كـ text/plain وتمنع تحميل الموارد المرتبطة
+  const CDN_BASE = "https://cdn.jsdelivr.net/gh/" + GITHUB_USER + "/" + GITHUB_REPO + "@" + BRANCH + "/";
 
-  function rawUrl(path){
-    return `https://raw.githubusercontent.com/${CONFIG.githubUser}/${CONFIG.githubRepo}/${CONFIG.branch}/${path}`;
+  const root = document.getElementById("app-root");
+  const bootLoader = document.getElementById("boot-loader");
+
+  function hideBootLoader() {
+    if (bootLoader) bootLoader.remove();
   }
 
-  // ============================================================
-  // قراءة اسم الصفحة من الرابط. يدعم كلا الشكلين:
-  //   /?=home    (الشكل المطلوب في المثال)
-  //   /?page=home  (شكل بديل أوضح، اختياري)
-  // ============================================================
-  function getPageFromUrl(){
-    const search = window.location.search; // مثال: "?=home"
-    const params = new URLSearchParams(search);
-    const emptyKeyValue = params.get('');   // يلتقط "=home"
-    const namedValue = params.get('page');  // يلتقط "page=home"
-    return (emptyKeyValue || namedValue || CONFIG.defaultPage).trim();
+  // كسر أي كاش (لا نريد عمل offline إطلاقاً، كل تحميل يجب أن يكون حياً من GitHub)
+  function bust(url) {
+    return url + (url.indexOf("?") === -1 ? "?" : "&") + "t=" + Date.now();
   }
 
-  function setPageInUrl(name, push){
-    const url = '/?=' + encodeURIComponent(name);
-    if (push) history.pushState({page:name}, '', url);
-    else history.replaceState({page:name}, '', url);
+  async function fetchLive(url) {
+    const res = await fetch(bust(url), { cache: "no-store" });
+    return res;
   }
 
-  // ============================================================
-  // شريط التحميل العلوي
-  // ============================================================
-  const loadingBar = document.getElementById('loading-bar');
-  function showLoading(){
-    loadingBar.style.opacity = '1';
-    loadingBar.style.width = '30%';
-    setTimeout(()=>{ loadingBar.style.width = '75%'; }, 150);
-  }
-  function hideLoading(){
-    loadingBar.style.width = '100%';
-    setTimeout(()=>{
-      loadingBar.style.opacity = '0';
-      setTimeout(()=>{ loadingBar.style.width = '0%'; }, 300);
-    }, 150);
-  }
+  // =======================================================
+  // 🧭 تحديد الصفحة المطلوبة من الرابط
+  // يدعم: example.com/home  و  example.com/?=home  و  example.com/?page=home
+  // =======================================================
+  function getRequestedPage() {
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, "");
+    if (path) return path.split("/")[0];
 
-  const offlinePill = document.getElementById('offline-pill');
-  function flagOffline(show){ offlinePill.classList.toggle('show', !!show); }
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("page")) return params.get("page");
+    if (params.has("")) return params.get(""); // يغطي صيغة ?=home
 
-  // ============================================================
-  // جلب نص من الرابط، مع رمي خطأ عند 404 أو فشل الشبكة
-  // ============================================================
-  async function fetchText(url){
-    const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    return await res.text();
+    const rawSearch = window.location.search.replace(/^\?/, "");
+    if (rawSearch && rawSearch.indexOf("=") === -1) return rawSearch; // يغطي صيغة ?home
+
+    return "home";
   }
 
-  // ============================================================
-  // بناء بطاقة الحالة (مغلق / صيانة) — نفس تصميم buildStatusPageHtml الأصلي
-  // ============================================================
-  function buildStatusScreen(container, opts){
-    const { icon, badgeText, badgeBg, title, message, logoUrl, btnText, btnUrl, endTime } = opts;
+  // =======================================================
+  // 🔴 بناء صفحة الحالة (مغلق / صيانة) - نفس تصميم النسخة الأصلية للتطبيق
+  // =======================================================
+  function buildStatusPageHtml(opts) {
+    const logoHtml = opts.logoUrl
+      ? "<img src='" + opts.logoUrl + "' class='app-logo' alt='Logo' />"
+      : "<div class='icon'>" + opts.icon + "</div>";
 
-    container.innerHTML = '';
-    const wrap = document.createElement('div');
-    wrap.className = 'status-screen';
+    const btnHtml = (opts.btnText && opts.btnUrl)
+      ? "<a href='" + opts.btnUrl + "' class='action-btn' target='_blank' rel='noopener'>" + opts.btnText + "</a>"
+      : "";
 
-    const card = document.createElement('div');
-    card.className = 'card';
+    let timerHtml = "";
+    let timerScript = "";
+    if (opts.endTime) {
+      timerHtml =
+        "<div id='timer-container' class='timer-box'>" +
+        "<div class='time-unit'><span id='days'>00</span><label>يوم</label></div>" +
+        "<div class='time-unit'><span id='hours'>00</span><label>ساعة</label></div>" +
+        "<div class='time-unit'><span id='minutes'>00</span><label>دقيقة</label></div>" +
+        "<div class='time-unit'><span id='seconds'>00</span><label>ثانية</label></div>" +
+        "</div>";
 
-    if (logoUrl && logoUrl.trim()){
-      const img = document.createElement('img');
-      img.src = logoUrl.trim();
-      img.className = 'app-logo';
-      img.alt = 'Logo';
-      card.appendChild(img);
-    } else {
-      const iconEl = document.createElement('div');
-      iconEl.className = 'icon';
-      iconEl.textContent = icon;
-      card.appendChild(iconEl);
+      timerScript =
+        "<script>" +
+        "var targetDate=new Date('" + opts.endTime + "').getTime();" +
+        "if(!isNaN(targetDate)){" +
+        "var x=setInterval(function(){" +
+        "var now=new Date().getTime();var distance=targetDate-now;" +
+        "if(distance<0){clearInterval(x);document.getElementById('timer-container').innerHTML='<div style=\"color:#10b981;font-weight:bold;\">انتهت المدة المحددة!</div>';return;}" +
+        "document.getElementById('days').innerText=Math.floor(distance/(1000*60*60*24));" +
+        "document.getElementById('hours').innerText=Math.floor((distance%(1000*60*60*24))/(1000*60*60));" +
+        "document.getElementById('minutes').innerText=Math.floor((distance%(1000*60*60))/(1000*60));" +
+        "document.getElementById('seconds').innerText=Math.floor((distance%(1000*60))/1000);" +
+        "},1000);}" +
+        "<\/script>";
     }
 
-    const badge = document.createElement('div');
-    badge.className = 'badge';
-    badge.style.background = badgeBg;
-    badge.textContent = badgeText;
-    card.appendChild(badge);
-
-    const h2 = document.createElement('h2');
-    h2.textContent = title;
-    card.appendChild(h2);
-
-    const p = document.createElement('p');
-    p.textContent = message;
-    card.appendChild(p);
-
-    if (endTime && endTime.trim()){
-      const timerBox = document.createElement('div');
-      timerBox.className = 'timer-box';
-      timerBox.id = 'timer-container';
-      ['days','hours','minutes','seconds'].forEach(unit=>{
-        const labelMap = {days:'يوم',hours:'ساعة',minutes:'دقيقة',seconds:'ثانية'};
-        const u = document.createElement('div');
-        u.className = 'time-unit';
-        u.innerHTML = `<span id="${unit}">00</span><label>${labelMap[unit]}</label>`;
-        timerBox.appendChild(u);
-      });
-      card.appendChild(timerBox);
-      startCountdown(endTime.trim());
-    }
-
-    if (btnText && btnText.trim() && btnUrl && btnUrl.trim()){
-      const a = document.createElement('a');
-      a.href = btnUrl.trim();
-      a.className = 'action-btn';
-      a.textContent = btnText.trim();
-      a.target = '_blank';
-      a.rel = 'noopener';
-      card.appendChild(a);
-    }
-
-    wrap.appendChild(card);
-    container.appendChild(wrap);
+    return (
+      "<!DOCTYPE html><html dir='rtl' lang='ar'><head><meta charset='UTF-8'>" +
+      "<meta name='viewport' content='width=device-width, initial-scale=1.0'><style>" +
+      "body{margin:0;padding:20px;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#0f172a;font-family:system-ui,-apple-system,sans-serif;color:#f8fafc;text-align:center;box-sizing:border-box;}" +
+      ".card{background:#1e293b;padding:30px 20px;border-radius:20px;box-shadow:0 20px 25px -5px rgba(0,0,0,.5);width:100%;max-width:400px;border:1px solid #334155;display:flex;flex-direction:column;align-items:center;}" +
+      ".app-logo{max-width:90px;max-height:90px;margin-bottom:15px;border-radius:16px;object-fit:contain;}" +
+      ".icon{font-size:50px;margin-bottom:12px;}" +
+      ".badge{display:inline-block;background-color:" + opts.badgeBg + ";color:#fff;font-size:13px;font-weight:bold;padding:5px 14px;border-radius:50px;margin-bottom:15px;}" +
+      "h2{margin:0 0 10px 0;font-size:20px;color:#fff;font-weight:700;}" +
+      "p{margin:0 0 15px 0;font-size:14px;color:#94a3b8;line-height:1.6;word-wrap:break-word;}" +
+      ".action-btn{display:inline-block;width:80%;margin-top:15px;padding:12px 20px;background:#3b82f6;color:#fff;font-weight:bold;font-size:15px;text-decoration:none;border-radius:12px;}" +
+      ".timer-box{display:flex;justify-content:center;gap:8px;margin-top:15px;width:100%;}" +
+      ".time-unit{background:#0f172a;padding:8px;border-radius:10px;border:1px solid #334155;min-width:55px;}" +
+      ".time-unit span{display:block;font-size:18px;font-weight:bold;color:#38bdf8;}" +
+      ".time-unit label{font-size:10px;color:#64748b;}" +
+      "</style></head><body><div class='card'>" +
+      logoHtml +
+      "<div class='badge'>" + opts.badgeText + "</div>" +
+      "<h2>" + opts.title + "</h2>" +
+      "<p>" + opts.message + "</p>" +
+      timerHtml + btnHtml +
+      "</div>" + timerScript + "</body></html>"
+    );
   }
 
-  let countdownTimer = null;
-  function startCountdown(endTimeStr){
-    if (countdownTimer) clearInterval(countdownTimer);
-    const target = new Date(endTimeStr).getTime();
-    if (isNaN(target)) return;
+  function renderIframeDoc(htmlString) {
+    hideBootLoader();
+    root.innerHTML = "";
+    const iframe = document.createElement("iframe");
+    iframe.setAttribute("sandbox", "allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin");
+    root.appendChild(iframe);
+    iframe.srcdoc = htmlString;
+  }
 
-    function tick(){
-      const now = Date.now();
-      const distance = target - now;
-      const container = document.getElementById('timer-container');
-      if (!container) { clearInterval(countdownTimer); return; }
+  function renderRemotePage(page) {
+    hideBootLoader();
+    root.innerHTML = "";
+    const iframe = document.createElement("iframe");
+    // jsDelivr يعرض الصفحة والموارد المرتبطة بها (css/js/images) مباشرة وبأنواع MIME صحيحة
+    iframe.src = bust(CDN_BASE + page + ".html");
+    root.appendChild(iframe);
+  }
 
-      if (distance < 0){
-        clearInterval(countdownTimer);
-        container.innerHTML = '<div class="timer-done">انتهت المدة المحددة!</div>';
+  function render404() {
+    hideBootLoader();
+    root.innerHTML = "";
+    const iframe = document.createElement("iframe");
+    iframe.src = bust(CDN_BASE + "404.html");
+    iframe.onerror = function () {
+      renderIframeDoc(
+        "<!DOCTYPE html><html dir='rtl' lang='ar'><body style='background:#0f172a;color:#f8fafc;font-family:system-ui;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;'>" +
+        "<div style='text-align:center;'><h1>404</h1><p>الصفحة غير موجودة</p></div></body></html>"
+      );
+    };
+    root.appendChild(iframe);
+  }
+
+  // =======================================================
+  // ⚡ التسلسل الرئيسي: فحص app_status.json ثم التوجيه للصفحة المطلوبة
+  // كل شيء يُجلب مباشرة من GitHub في كل مرة (بدون أي تخزين أو وضع offline)
+  // =======================================================
+  async function init() {
+    // 1) فحص حالة التطبيق (مغلق / صيانة)
+    try {
+      const statusRes = await fetchLive(RAW_BASE + "app_status.json");
+      if (statusRes.ok) {
+        const status = await statusRes.json();
+        if (status.is_closed || status.is_maintenance) {
+          const isClosed = !!status.is_closed;
+          renderIframeDoc(buildStatusPageHtml({
+            icon: isClosed ? "🚫" : "🛠️",
+            badgeText: isClosed ? "التطبيق مغلق" : "وضع الصيانة",
+            badgeBg: isClosed ? "#ef4444" : "#f59e0b",
+            title: isClosed ? (status.close_title || "التطبيق متوقف حالياً") : (status.maintenance_title || "تطبيق تحت الصيانة"),
+            message: isClosed ? (status.close_message || "تم إغلاق التطبيق.") : (status.maintenance_message || "سنعود قريباً!"),
+            logoUrl: status.logo_url || "",
+            btnText: status.btn_text || "",
+            btnUrl: status.btn_url || "",
+            endTime: status.end_time || ""
+          }));
+          return;
+        }
+      }
+    } catch (e) {
+      // تعذر الوصول لملف الحالة، تابع بشكل طبيعي
+    }
+
+    // 2) تحديد الصفحة المطلوبة والتحقق من وجودها فعلياً على GitHub قبل عرضها
+    const page = getRequestedPage();
+    try {
+      const check = await fetchLive(RAW_BASE + page + ".html");
+      if (!check.ok) {
+        render404();
         return;
       }
-      const days = Math.floor(distance / 86400000);
-      const hours = Math.floor((distance % 86400000) / 3600000);
-      const minutes = Math.floor((distance % 3600000) / 60000);
-      const seconds = Math.floor((distance % 60000) / 1000);
-
-      const d = document.getElementById('days'), h = document.getElementById('hours'),
-            m = document.getElementById('minutes'), s = document.getElementById('seconds');
-      if (d) d.textContent = days;
-      if (h) h.textContent = hours;
-      if (m) m.textContent = minutes;
-      if (s) s.textContent = seconds;
+    } catch (e) {
+      render404();
+      return;
     }
-    tick();
-    countdownTimer = setInterval(tick, 1000);
+
+    renderRemotePage(page);
   }
 
-  // ============================================================
-  // فحص app_status.json (مغلق / صيانة) مع تخزين محلي للعمل أوفلاين
-  // ============================================================
-  async function checkStatus(){
-    try{
-      const raw = await fetchText(rawUrl('app_status.json'));
-      const json = JSON.parse(raw);
-      localStorage.setItem('app_status_cache', raw);
-      flagOffline(false);
-      return json;
-    }catch(e){
-      const cached = localStorage.getItem('app_status_cache');
-      if (cached){
-        flagOffline(true);
-        try{ return JSON.parse(cached); }catch(_){ /* ignore */ }
-      }
-      return { is_closed:false, is_maintenance:false };
-    }
-  }
-
-  function showClosed(status){
-    document.getElementById('page-wrap').style.display = 'none';
-    let host = document.getElementById('status-host');
-    if (!host){ host = document.createElement('div'); host.id = 'status-host'; document.body.appendChild(host); }
-    buildStatusScreen(host, {
-      icon: '🚫',
-      badgeText: 'التطبيق مغلق',
-      badgeBg: 'var(--danger)',
-      title: status.close_title || 'التطبيق متوقف حالياً',
-      message: status.close_message || 'تم إغلاق التطبيق.',
-      logoUrl: status.logo_url || '',
-      btnText: status.btn_text || '',
-      btnUrl: status.btn_url || '',
-      endTime: status.end_time || ''
-    });
-  }
-
-  function showMaintenance(status){
-    document.getElementById('page-wrap').style.display = 'none';
-    let host = document.getElementById('status-host');
-    if (!host){ host = document.createElement('div'); host.id = 'status-host'; document.body.appendChild(host); }
-    buildStatusScreen(host, {
-      icon: '🛠️',
-      badgeText: 'وضع الصيانة',
-      badgeBg: 'var(--warn)',
-      title: status.maintenance_title || 'الموقع تحت الصيانة',
-      message: status.maintenance_message || 'سنعود قريباً!',
-      logoUrl: status.logo_url || '',
-      btnText: status.btn_text || '',
-      btnUrl: status.btn_url || '',
-      endTime: status.end_time || ''
-    });
-  }
-
-  function clearStatusScreen(){
-    const host = document.getElementById('status-host');
-    if (host) host.remove();
-    document.getElementById('page-wrap').style.display = '';
-  }
-
-  // ============================================================
-  // عرض صفحة 404
-  // ============================================================
-  async function render404(){
-    const frame = document.getElementById('page-frame');
-    try{
-      const html = await fetchText(rawUrl('404.html'));
-      frame.srcdoc = html;
-    }catch(e){
-      frame.srcdoc = `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
-        <style>body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;
-        background:#0f172a;color:#f8fafc;font-family:Tahoma,sans-serif;text-align:center;}
-        h1{font-size:64px;margin:0;color:#3b82f6;}p{color:#94a3b8;}</style></head>
-        <body><div><h1>404</h1><p>الصفحة غير موجودة</p></div></body></html>`;
-    }
-    frame.classList.add('visible');
-  }
-
-  // ============================================================
-  // تحميل صفحة معيّنة (تُطلب كـ {name}.html من نفس المستودع) وعرضها داخل iframe
-  // مع تخزين محلي (localStorage) للعمل بشكل محدود أوفلاين
-  // ============================================================
-  async function loadPage(name){
-    showLoading();
-    const frame = document.getElementById('page-frame');
-    frame.classList.remove('visible');
-
-    try{
-      const html = await fetchText(rawUrl(`${name}.html`));
-      localStorage.setItem('page_cache_' + name, html);
-      flagOffline(false);
-      frame.srcdoc = html;
-      frame.classList.add('visible');
-    }catch(e){
-      const cached = localStorage.getItem('page_cache_' + name);
-      if (cached){
-        flagOffline(true);
-        frame.srcdoc = cached;
-        frame.classList.add('visible');
-      } else {
-        await render404();
-      }
-    } finally {
-      hideLoading();
-    }
-  }
-
-  // ============================================================
-  // شريط التنقل العلوي (لتجربة التنقل بين index / home / about)
-  // ============================================================
-  function highlightNav(name){
-    document.querySelectorAll('#topbar .nav-link').forEach(el=>{
-      el.classList.toggle('active', el.dataset.page === name);
-    });
-  }
-
-  document.querySelectorAll('#topbar .nav-link').forEach(el=>{
-    el.addEventListener('click', ()=>{
-      const name = el.dataset.page;
-      setPageInUrl(name, true);
-      run();
-    });
-  });
-
-  // ============================================================
-  // نقطة الدخول الرئيسية — تعادل onCreate الأصلي:
-  // 1) فحص app_status.json أولاً (مغلق / صيانة)
-  // 2) إن كان سليماً، تحميل الصفحة المطلوبة من الرابط
-  // ============================================================
-  async function run(){
-    const status = await checkStatus();
-
-    if (status.is_closed){ showClosed(status); return; }
-    if (status.is_maintenance){ showMaintenance(status); return; }
-
-    clearStatusScreen();
-    const page = getPageFromUrl();
-    highlightNav(page);
-    setPageInUrl(page, false);
-    await loadPage(page);
-  }
-
-  window.addEventListener('popstate', run);
-  run();
-
+  init();
 })();
 </script>
 </body>
