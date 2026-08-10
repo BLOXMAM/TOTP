@@ -10,9 +10,72 @@
       "id": "stu_1786337217066",
       "name": "الطالب التجريبي",
       "groupId": "group_default",
-      "data": {},
-      "surahData": {},
-      "ajzaData": {},
+      "data": {
+        "2": [
+          {
+            "attemptNumber": 1,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ]
+      },
+      "surahData": {
+        "1": [
+          {
+            "attemptNumber": 1,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
+        "6": [
+          {
+            "attemptNumber": 1,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
+        "7": [
+          {
+            "attemptNumber": 1,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ]
+      },
+      "ajzaData": {
+        "1": [
+          {
+            "attemptNumber": 1,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ]
+      },
       "reviewPlans": [],
       "assignedPlans": {
         "2026-08-11": {
