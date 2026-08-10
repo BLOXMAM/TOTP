@@ -1,0 +1,56 @@
+{
+  "groups": [
+    {
+      "id": "group_default",
+      "name": "حلقة إفتراضية"
+    }
+  ],
+  "students": [
+    {
+      "id": "stu_1786337217066",
+      "name": "الطالب التجريبي",
+      "groupId": "group_default",
+      "data": {},
+      "surahData": {},
+      "ajzaData": {},
+      "reviewPlans": [],
+      "assignedPlans": {
+        "2026-08-11": {
+          "lesson": {
+            "surahIdx": 0,
+            "mode": "all",
+            "from": 1,
+            "to": 1
+          },
+          "lessonSurah": {
+            "surahIdx": 2,
+            "mode": "verses",
+            "from": 1,
+            "to": 9
+          },
+          "review1": {
+            "unit": "ajza",
+            "from": 19,
+            "to": 7
+          },
+          "review2": {
+            "unit": "ahzab",
+            "from": 1,
+            "to": 8
+          },
+          "surahRange": {
+            "from": 5,
+            "to": 9
+          },
+          "note": "جميييل"
+        }
+      }
+    }
+  ],
+  "settings": {
+    "errorDeduction": 1,
+    "doubtDeduction": 1,
+    "tajweedDeduction": 0.25,
+    "confidenceDeduction": 5
+  }
+}
