@@ -2583,7 +2583,25 @@
           "note": ""
         }
       },
-      "linkedAccountId": "sacc_1786332543073"
+      "linkedAccountId": "sacc_1786332543073",
+      "assignments": {
+        "١١‏/٨‏/٢٠٢٦": {
+          "lesson": {
+            "surahIdx": 6,
+            "scope": "all",
+            "verseFrom": 1,
+            "verseTo": 1
+          },
+          "review1": {
+            "unit": "ahzab",
+            "idx": 58
+          },
+          "reviewRange": {
+            "from": "7 - الأعراف",
+            "to": "5 - المائدة"
+          }
+        }
+      }
     }
   ],
   "studentAccounts": [
@@ -2597,5 +2615,5 @@
       "firstLoginDone": true
     }
   ],
-  "updatedAt": 1786360318965
+  "updatedAt": 1786361248166
 }
