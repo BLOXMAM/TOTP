@@ -289,6 +289,16 @@
             "tajweedErrors": 0,
             "score": 9.5,
             "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 2,
+            "doubts": 5,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 5.5,
+            "scopeType": "all"
           }
         ],
         "59": [
@@ -366,6 +376,52 @@
             "hesitations": 0,
             "tajweedErrors": 0,
             "score": 4,
+            "scopeType": "all"
+          }
+        ],
+        "5": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
+        "6": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 2,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
+        "7": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
             "scopeType": "all"
           }
         ],
@@ -2615,5 +2671,5 @@
       "firstLoginDone": true
     }
   ],
-  "updatedAt": 1786361248166
+  "updatedAt": 1786361562346
 }
