@@ -10,8 +10,34 @@
       "id": "stu_1786332519888",
       "name": "الطالب التجريبي",
       "groupId": "group_default",
-      "data": {},
-      "surahData": {},
+      "data": {
+        "2": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ]
+      },
+      "surahData": {
+        "1": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ]
+      },
       "ajzaData": {
         "1": [
           {
@@ -26,6 +52,30 @@
           }
         ],
         "2": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
+        "3": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
+        "4": [
           {
             "attemptNumber": 1,
             "date": "١٠‏/٨‏/٢٠٢٦",
@@ -93,5 +143,5 @@
       "firstLoginDone": true
     }
   ],
-  "updatedAt": 1786339942574
+  "updatedAt": 1786340018396
 }
