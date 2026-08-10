@@ -1,0 +1,97 @@
+{
+  "groups": [
+    {
+      "id": "group_default",
+      "name": "حلقة إفتراضية"
+    }
+  ],
+  "students": [
+    {
+      "id": "stu_1786332519888",
+      "name": "الطالب التجريبي",
+      "groupId": "group_default",
+      "data": {},
+      "surahData": {},
+      "ajzaData": {
+        "1": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
+        "2": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ]
+      },
+      "reviewPlans": [],
+      "linkedAccountId": "sacc_1786332543073",
+      "assignments": {
+        "١١‏/٨‏/٢٠٢٦": {
+          "lesson": {
+            "surahIdx": 1,
+            "scope": "all",
+            "verseFrom": 1,
+            "verseTo": 1
+          },
+          "lessonSurah": {
+            "surahIdx": 6,
+            "scope": "verses",
+            "verseFrom": 1,
+            "verseTo": 7
+          },
+          "review1": {
+            "unit": "ahzab",
+            "idx": 16
+          },
+          "review2": {
+            "unit": "ajza",
+            "idx": 26
+          },
+          "reviewRange": {
+            "from": "1 - الفاتحة",
+            "to": "1 - الفاتحة"
+          },
+          "note": "رائع"
+        }
+      }
+    },
+    {
+      "id": "stu_1786332575794",
+      "name": "ربط",
+      "groupId": "group_default",
+      "data": {},
+      "surahData": {},
+      "ajzaData": {},
+      "reviewPlans": [],
+      "linkedAccountId": null,
+      "assignments": {}
+    }
+  ],
+  "studentAccounts": [
+    {
+      "id": "sacc_1786332543073",
+      "name": "مجد مجد المجد",
+      "password": "kkkk",
+      "createdAt": 1786332543073,
+      "lastPwdChange": 1786332543073,
+      "welcomedAt": 1786332543096,
+      "firstLoginDone": true
+    }
+  ],
+  "updatedAt": 1786339942574
+}
