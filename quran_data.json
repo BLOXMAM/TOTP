@@ -10,6 +10,18 @@
       "id": "stu_1783622426293",
       "name": "حسام محمد السهلي",
       "data": {
+        "3": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 4,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 6,
+            "scopeType": "all"
+          }
+        ],
         "40": [
           {
             "attemptNumber": 1,
@@ -333,6 +345,30 @@
         ]
       },
       "surahData": {
+        "2": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
+        "3": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 12,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 4,
+            "scopeType": "all"
+          }
+        ],
         "20": [
           {
             "attemptNumber": 1,
@@ -2215,6 +2251,78 @@
         ]
       },
       "ajzaData": {
+        "1": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
+        "2": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 5,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 5,
+            "scopeType": "all"
+          }
+        ],
+        "3": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 50,
+            "score": 0,
+            "scopeType": "all"
+          }
+        ],
+        "4": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 2,
+            "doubts": 6,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 5,
+            "scopeType": "all"
+          }
+        ],
+        "5": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 4,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 6,
+            "scopeType": "all"
+          }
+        ],
+        "16": [
+          {
+            "attemptNumber": 1,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
         "24": [
           {
             "attemptNumber": 1,
@@ -2251,6 +2359,16 @@
           {
             "attemptNumber": 3,
             "date": "٨‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١٠‏/٨‏/٢٠٢٦",
             "errors": 0,
             "doubts": 0,
             "hesitations": 0,
@@ -2322,6 +2440,16 @@
             "hesitations": 3,
             "tajweedErrors": 0,
             "score": 7,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١٠‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
             "scopeType": "all"
           }
         ],
@@ -2397,9 +2525,9 @@
           "fromIdx": 30,
           "toIdx": 26,
           "direction": "down",
-          "currentIdx": 28,
-          "lastCompletedIdx": null,
-          "lastCompletedDate": null
+          "currentIdx": 27,
+          "lastCompletedIdx": 28,
+          "lastCompletedDate": "١٠‏/٨‏/٢٠٢٦"
         },
         {
           "id": "rp_1786157592035_1",
@@ -2408,9 +2536,9 @@
           "fromIdx": 25,
           "toIdx": 21,
           "direction": "down",
-          "currentIdx": 25,
-          "lastCompletedIdx": null,
-          "lastCompletedDate": null
+          "currentIdx": 24,
+          "lastCompletedIdx": 25,
+          "lastCompletedDate": "١٠‏/٨‏/٢٠٢٦"
         },
         {
           "id": "rp_1786157592036_2",
@@ -2419,9 +2547,9 @@
           "fromIdx": 20,
           "toIdx": 16,
           "direction": "down",
-          "currentIdx": 16,
-          "lastCompletedIdx": null,
-          "lastCompletedDate": null
+          "currentIdx": 20,
+          "lastCompletedIdx": 16,
+          "lastCompletedDate": "١٠‏/٨‏/٢٠٢٦"
         }
       ],
       "assignedPlans": {
@@ -2469,5 +2597,5 @@
       "firstLoginDone": true
     }
   ],
-  "updatedAt": 1786360176102
+  "updatedAt": 1786360318965
 }
