@@ -4363,7 +4363,8 @@
           "lastCompletedIdx": null,
           "lastCompletedDate": null
         }
-      ]
+      ],
+      "linkedAccountId": "sacc_1786426169292"
     }
   ],
   "studentAccounts": [
@@ -4386,5 +4387,5 @@
       "firstLoginDone": true
     }
   ],
-  "updatedAt": 1786427232269
+  "updatedAt": 1786427299644
 }
