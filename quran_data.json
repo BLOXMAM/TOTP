@@ -4407,7 +4407,18 @@
           "lastCompletedDate": null
         }
       ],
-      "linkedAccountId": "sacc_1786332543073"
+      "linkedAccountId": null
+    },
+    {
+      "id": "stu_1786467608167",
+      "name": "مجد",
+      "groupId": "group_default",
+      "data": {},
+      "surahData": {},
+      "ajzaData": {},
+      "reviewPlans": [],
+      "linkedAccountId": "sacc_1786332543073",
+      "assignments": {}
     }
   ],
   "studentAccounts": [
@@ -4430,5 +4441,5 @@
       "firstLoginDone": true
     }
   ],
-  "updatedAt": 1786466684906
+  "updatedAt": 1786467611880
 }
