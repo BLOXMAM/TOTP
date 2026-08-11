@@ -4306,7 +4306,16 @@
       "lastPwdChange": 1786332543073,
       "welcomedAt": 1786332543096,
       "firstLoginDone": true
+    },
+    {
+      "id": "sacc_1786426169292",
+      "name": "حسام محمد السهلي",
+      "password": "A098890",
+      "createdAt": 1786426169292,
+      "lastPwdChange": 1786426169292,
+      "welcomedAt": null,
+      "firstLoginDone": false
     }
   ],
-  "updatedAt": 1786419010961
+  "updatedAt": 1786426169292
 }
