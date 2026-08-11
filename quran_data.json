@@ -7,13 +7,14 @@
   ],
   "students": [
     {
-      "id": "stu_1786426525802",
+      "id": "stu_1786427063934",
       "name": "الطالب التجريبي",
       "groupId": "group_default",
       "data": {},
       "surahData": {},
       "ajzaData": {},
-      "reviewPlans": []
+      "reviewPlans": [],
+      "linkedAccountId": "sacc_1786426169292"
     }
   ],
   "studentAccounts": [
@@ -29,12 +30,12 @@
     {
       "id": "sacc_1786426169292",
       "name": "حسام محمد السهلي",
-      "password": "A09",
+      "password": "A098890",
       "createdAt": 1786426169292,
       "lastPwdChange": 1786426169292,
-      "welcomedAt": null,
-      "firstLoginDone": false
+      "welcomedAt": 1786426562733,
+      "firstLoginDone": true
     }
   ],
-  "updatedAt": 1786426798966
+  "updatedAt": 1786427093583
 }
