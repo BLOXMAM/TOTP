@@ -18,9 +18,9 @@
           "fromIdx": 30,
           "toIdx": 26,
           "direction": "down",
-          "currentIdx": 26,
-          "lastCompletedIdx": 27,
-          "lastCompletedDate": "١١‏/٨‏/٢٠٢٦"
+          "currentIdx": 30,
+          "lastCompletedIdx": 26,
+          "lastCompletedDate": "١٢‏/٨‏/٢٠٢٦"
         },
         {
           "id": "rp_1786157592035_1",
@@ -29,9 +29,9 @@
           "fromIdx": 25,
           "toIdx": 21,
           "direction": "down",
-          "currentIdx": 25,
-          "lastCompletedIdx": null,
-          "lastCompletedDate": null
+          "currentIdx": 24,
+          "lastCompletedIdx": 25,
+          "lastCompletedDate": "١٢‏/٨‏/٢٠٢٦"
         },
         {
           "id": "rp_1786157592036_2",
@@ -40,13 +40,13 @@
           "fromIdx": 20,
           "toIdx": 16,
           "direction": "down",
-          "currentIdx": 16,
-          "lastCompletedIdx": null,
-          "lastCompletedDate": null
+          "currentIdx": 20,
+          "lastCompletedIdx": 16,
+          "lastCompletedDate": "١٢‏/٨‏/٢٠٢٦"
         }
       ],
       "linkedAccountId": "sacc_1786505826861"
     }
   ],
-  "updatedAt": 1786506164482
+  "updatedAt": 1786506228395
 }
