@@ -4687,7 +4687,35 @@
           }
         ]
       },
-      "assignments": {}
+      "assignments": {
+        "١٣‏/٨‏/٢٠٢٦": {
+          "lesson": {
+            "surahIdx": 6,
+            "scope": "all",
+            "verseFrom": 1,
+            "verseTo": 1
+          },
+          "lessonSurah": {
+            "surahIdx": 8,
+            "scope": "all",
+            "verseFrom": 1,
+            "verseTo": 1
+          },
+          "review1": {
+            "unit": "ajza",
+            "idx": 6
+          },
+          "review2": {
+            "unit": "ahzab",
+            "idx": 9
+          },
+          "reviewRange": {
+            "from": "1 - الفاتحة",
+            "to": "4 - النساء"
+          },
+          "note": "ماكس"
+        }
+      }
     }
   ],
   "studentAccounts": [
@@ -4719,5 +4747,5 @@
       "firstLoginDone": true
     }
   ],
-  "updatedAt": 1786509290475
+  "updatedAt": 1786509335167
 }
