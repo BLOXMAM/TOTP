@@ -45,7 +45,7 @@
           "lastCompletedDate": "١٢‏/٨‏/٢٠٢٦"
         }
       ],
-      "linkedAccountId": "sacc_1786426169292",
+      "linkedAccountId": "sacc_1786505826861",
       "data": {
         "40": [
           {
@@ -4714,9 +4714,23 @@
             "to": "1 - الفاتحة"
           },
           "note": "ماكس"
+        },
+        "١٤‏/٨‏/٢٠٢٦": {
+          "lesson": {
+            "surahIdx": 1,
+            "scope": "all",
+            "verseFrom": 1,
+            "verseTo": 1
+          },
+          "lessonSurah": {
+            "surahIdx": 1,
+            "scope": "all",
+            "verseFrom": 1,
+            "verseTo": 1
+          }
         }
       }
     }
   ],
-  "updatedAt": 1786567894425
+  "updatedAt": 1786568656775
 }
