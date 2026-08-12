@@ -1,0 +1,59 @@
+{
+  "groups": [
+    {
+      "id": "group_default",
+      "name": "حلقة إفتراضي"
+    }
+  ],
+  "students": [
+    {
+      "id": "stu_1783622426293",
+      "name": "حسام محمد السهلي",
+      "groupId": "group_default",
+      "reviewPlans": [
+        {
+          "id": "rp_1786157592035_0",
+          "label": "مراجعة 1",
+          "unit": "ajza",
+          "fromIdx": 30,
+          "toIdx": 26,
+          "direction": "down",
+          "currentIdx": 27,
+          "lastCompletedIdx": 28,
+          "lastCompletedDate": "١٠‏/٨‏/٢٠٢٦"
+        },
+        {
+          "id": "rp_1786157592035_1",
+          "label": "مراجعة 2",
+          "unit": "ajza",
+          "fromIdx": 25,
+          "toIdx": 21,
+          "direction": "down",
+          "currentIdx": 25,
+          "lastCompletedIdx": null,
+          "lastCompletedDate": null
+        },
+        {
+          "id": "rp_1786157592036_2",
+          "label": "مراجعة 3",
+          "unit": "ajza",
+          "fromIdx": 20,
+          "toIdx": 16,
+          "direction": "down",
+          "currentIdx": 16,
+          "lastCompletedIdx": null,
+          "lastCompletedDate": null
+        }
+      ],
+      "linkedAccountId": "sacc_1786332543073"
+    },
+    {
+      "id": "stu_1786467608167",
+      "name": "مجد",
+      "groupId": "group_default",
+      "reviewPlans": [],
+      "linkedAccountId": "sacc_1786505800833"
+    }
+  ],
+  "updatedAt": 1786505877742
+}
