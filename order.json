@@ -18,6 +18,12 @@
     "hidden": false
   },
   {
+    "file": "abnav.html",
+    "title": "abnav",
+    "icon": "fa-solid fa-file",
+    "hidden": false
+  },
+  {
     "file": "al.html",
     "title": "al",
     "icon": "fa-solid fa-camera",
@@ -69,6 +75,12 @@
     "file": "o.html",
     "title": "o",
     "icon": "fa-solid fa-credit-card",
+    "hidden": true
+  },
+  {
+    "file": "oow.html",
+    "title": "oow",
+    "icon": "fa-solid fa-file",
     "hidden": true
   },
   {
