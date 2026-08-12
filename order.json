@@ -94,5 +94,11 @@
     "title": "wo",
     "icon": "fa-solid fa-heart",
     "hidden": false
+  },
+  {
+    "file": "bn.html",
+    "title": "bn",
+    "icon": "fa-solid fa-search",
+    "hidden": false
   }
 ]
