@@ -27,25 +27,25 @@
     "file": "al.html",
     "title": "al",
     "icon": "fa-solid fa-camera",
-    "hidden": true
+    "hidden": false
   },
   {
     "file": "aw.html",
     "title": "aw",
     "icon": "fa-solid fa-pen",
-    "hidden": true
+    "hidden": false
   },
   {
     "file": "b.html",
     "title": "b",
     "icon": "fa-solid fa-envelope",
-    "hidden": true
+    "hidden": false
   },
   {
     "file": "bn.html",
     "title": "bn",
     "icon": "fa-solid fa-search",
-    "hidden": true
+    "hidden": false
   },
   {
     "file": "cost.html",
