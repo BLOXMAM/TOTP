@@ -9,6 +9,43 @@
     {
       "id": "stu_1783622426293",
       "name": "حسام محمد السهلي",
+      "groupId": "group_default",
+      "reviewPlans": [
+        {
+          "id": "rp_1786157592035_0",
+          "label": "مراجعة 1",
+          "unit": "ajza",
+          "fromIdx": 30,
+          "toIdx": 26,
+          "direction": "down",
+          "currentIdx": 30,
+          "lastCompletedIdx": 26,
+          "lastCompletedDate": "١٢‏/٨‏/٢٠٢٦"
+        },
+        {
+          "id": "rp_1786157592035_1",
+          "label": "مراجعة 2",
+          "unit": "ajza",
+          "fromIdx": 25,
+          "toIdx": 21,
+          "direction": "down",
+          "currentIdx": 24,
+          "lastCompletedIdx": 25,
+          "lastCompletedDate": "١٢‏/٨‏/٢٠٢٦"
+        },
+        {
+          "id": "rp_1786157592036_2",
+          "label": "مراجعة 3",
+          "unit": "ajza",
+          "fromIdx": 20,
+          "toIdx": 16,
+          "direction": "down",
+          "currentIdx": 20,
+          "lastCompletedIdx": 16,
+          "lastCompletedDate": "١٢‏/٨‏/٢٠٢٦"
+        }
+      ],
+      "linkedAccountId": "sacc_1786505826861",
       "data": {
         "40": [
           {
@@ -166,6 +203,36 @@
               "الطور",
               "القمر"
             ]
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 13,
+            "hesitations": 6,
+            "tajweedErrors": 0,
+            "score": 3.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١٢‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 3,
+            "hesitations": 1,
+            "tajweedErrors": 0,
+            "score": 8.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 5,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
           }
         ],
         "54": [
@@ -191,6 +258,36 @@
             "problemSurahs": [
               "الحديد"
             ]
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 11,
+            "hesitations": 6,
+            "tajweedErrors": 0,
+            "score": 4.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١٢‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 2,
+            "hesitations": 5,
+            "tajweedErrors": 0,
+            "score": 9,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 5,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 1,
+            "hesitations": 2,
+            "tajweedErrors": 0,
+            "score": 9.5,
+            "scopeType": "all"
           }
         ],
         "55": [
@@ -499,20 +596,6 @@
             "tajweedErrors": 0,
             "score": 9.5,
             "scopeType": "all"
-          },
-          {
-            "attemptNumber": 6,
-            "date": "١١‏/٨‏/٢٠٢٦",
-            "errors": 0,
-            "doubts": 3,
-            "hesitations": 0,
-            "tajweedErrors": 0,
-            "score": 8.5,
-            "scopeType": "all",
-            "problemSurahs": [
-              "الشمس",
-              "الليل"
-            ]
           }
         ]
       },
@@ -1039,6 +1122,36 @@
             "tajweedErrors": 0,
             "score": 9.5,
             "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 1,
+            "hesitations": 2,
+            "tajweedErrors": 0,
+            "score": 9.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 1,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 9.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 5,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
           }
         ],
         "52": [
@@ -1064,6 +1177,36 @@
             "tajweedErrors": 0,
             "score": 8,
             "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 5,
+            "hesitations": 1,
+            "tajweedErrors": 0,
+            "score": 7.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 1,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 9.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 5,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
           }
         ],
         "53": [
@@ -1083,6 +1226,36 @@
           {
             "attemptNumber": 2,
             "date": "٢٤‏/٧‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 1,
+            "hesitations": 2,
+            "tajweedErrors": 0,
+            "score": 9.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 1,
+            "hesitations": 1,
+            "tajweedErrors": 0,
+            "score": 9.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 5,
+            "date": "١١‏/٨‏/٢٠٢٦",
             "errors": 0,
             "doubts": 0,
             "hesitations": 0,
@@ -1114,6 +1287,36 @@
             "tajweedErrors": 0,
             "score": 8.5,
             "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 8,
+            "hesitations": 1,
+            "tajweedErrors": 0,
+            "score": 6,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 5,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
           }
         ],
         "55": [
@@ -1138,6 +1341,36 @@
             "hesitations": 0,
             "tajweedErrors": 0,
             "score": 9.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 1,
+            "hesitations": 1,
+            "tajweedErrors": 0,
+            "score": 9.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 1,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 5,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
             "scopeType": "all"
           }
         ],
@@ -1164,6 +1397,36 @@
             "tajweedErrors": 0,
             "score": 8.5,
             "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 3,
+            "hesitations": 3,
+            "tajweedErrors": 0,
+            "score": 8.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 5,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
           }
         ],
         "57": [
@@ -1188,6 +1451,36 @@
             "hesitations": 0,
             "tajweedErrors": 0,
             "score": 6.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 7,
+            "hesitations": 2,
+            "tajweedErrors": 0,
+            "score": 6.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 2,
+            "hesitations": 4,
+            "tajweedErrors": 0,
+            "score": 9,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 5,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 1,
+            "hesitations": 2,
+            "tajweedErrors": 0,
+            "score": 9.5,
             "scopeType": "all"
           }
         ],
@@ -4034,20 +4327,6 @@
             "tajweedErrors": 0,
             "score": 10,
             "scopeType": "all"
-          },
-          {
-            "attemptNumber": 6,
-            "date": "١١‏/٨‏/٢٠٢٦",
-            "errors": 0,
-            "doubts": 1,
-            "hesitations": 0,
-            "tajweedErrors": 0,
-            "score": 9.5,
-            "scopeType": "all",
-            "problemPages": [
-              5,
-              7
-            ]
           }
         ],
         "114": [
@@ -4103,6 +4382,18 @@
         ]
       },
       "ajzaData": {
+        "16": [
+          {
+            "attemptNumber": 1,
+            "date": "١٢‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
+          }
+        ],
         "24": [
           {
             "attemptNumber": 1,
@@ -4145,6 +4436,16 @@
             "tajweedErrors": 0,
             "score": 10,
             "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١٢‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
           }
         ],
         "26": [
@@ -4167,6 +4468,16 @@
             "tajweedErrors": 0,
             "score": 2.5,
             "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١٢‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 0,
+            "hesitations": 0,
+            "tajweedErrors": 0,
+            "score": 10,
+            "scopeType": "all"
           }
         ],
         "27": [
@@ -4188,6 +4499,26 @@
             "hesitations": 4,
             "tajweedErrors": 0,
             "score": 0.5,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 3,
+            "date": "١١‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 24,
+            "hesitations": 12,
+            "tajweedErrors": 0,
+            "score": 0,
+            "scopeType": "all"
+          },
+          {
+            "attemptNumber": 4,
+            "date": "١٢‏/٨‏/٢٠٢٦",
+            "errors": 0,
+            "doubts": 5,
+            "hesitations": 6,
+            "tajweedErrors": 0,
+            "score": 7.5,
             "scopeType": "all"
           }
         ],
@@ -4353,71 +4684,9 @@
             "tajweedErrors": 0,
             "score": 9.5,
             "scopeType": "all"
-          },
-          {
-            "attemptNumber": 6,
-            "date": "١١‏/٨‏/٢٠٢٦",
-            "errors": 0,
-            "doubts": 5,
-            "hesitations": 0,
-            "tajweedErrors": 0,
-            "score": 7.5,
-            "scopeType": "all",
-            "problemSurahs": [
-              "المطففين",
-              "الانشقاق",
-              "البروج"
-            ]
           }
         ]
       },
-      "groupId": "group_default",
-      "reviewPlans": [
-        {
-          "id": "rp_1786157592035_0",
-          "label": "مراجعة 1",
-          "unit": "ajza",
-          "fromIdx": 30,
-          "toIdx": 26,
-          "direction": "down",
-          "currentIdx": 27,
-          "lastCompletedIdx": 28,
-          "lastCompletedDate": "١٠‏/٨‏/٢٠٢٦"
-        },
-        {
-          "id": "rp_1786157592035_1",
-          "label": "مراجعة 2",
-          "unit": "ajza",
-          "fromIdx": 25,
-          "toIdx": 21,
-          "direction": "down",
-          "currentIdx": 25,
-          "lastCompletedIdx": null,
-          "lastCompletedDate": null
-        },
-        {
-          "id": "rp_1786157592036_2",
-          "label": "مراجعة 3",
-          "unit": "ajza",
-          "fromIdx": 20,
-          "toIdx": 16,
-          "direction": "down",
-          "currentIdx": 16,
-          "lastCompletedIdx": null,
-          "lastCompletedDate": null
-        }
-      ],
-      "linkedAccountId": "sacc_1786332543073"
-    },
-    {
-      "id": "stu_1786467608167",
-      "name": "مجد",
-      "groupId": "group_default",
-      "data": {},
-      "surahData": {},
-      "ajzaData": {},
-      "reviewPlans": [],
-      "linkedAccountId": "sacc_1786426169292",
       "assignments": {}
     }
   ],
@@ -4439,7 +4708,16 @@
       "lastPwdChange": 1786426169292,
       "welcomedAt": 1786426562733,
       "firstLoginDone": true
+    },
+    {
+      "id": "sacc_1786505826861",
+      "name": "رايد وادي باد",
+      "password": "aaaa",
+      "createdAt": 1786505826861,
+      "lastPwdChange": 1786505826861,
+      "welcomedAt": 1786505828322,
+      "firstLoginDone": true
     }
   ],
-  "updatedAt": 1786482604649
+  "updatedAt": 1786508893475
 }
