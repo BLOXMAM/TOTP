@@ -1,12 +1,15 @@
 {
   "name": "قالب Tenmax الاحترافي",
-  "description": "هذا وصف تفصيلي لمميزات قالب tenmax وكيف يعمل على المتجر.",
-  "price": "$25",
-  "date": "2026-08-12",
-  "image": "https://example.com/main-image.png",
+  "pageTitle": "Tenmax Template",
+  "description": "هذا وصف تفصيلي لمميزات قالب tenmax وكيف يعمل على المتجر، يتميز بتصميم عصري وسريع التجاوب مع جميع الأجهزة.",
+  "price": "25",
+  "link": "https://example.com/preview/tenmax",
+  "buyLink": "https://example.com/buy/tenmax",
+  "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800",
+  "banner": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200",
   "gallery": [
-    "https://example.com/img1.png",
-    "https://example.com/img2.png"
-  ],
-  "fonts": "Cairo, Tajawal"
+    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600",
+    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600",
+    "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600"
+  ]
 }
