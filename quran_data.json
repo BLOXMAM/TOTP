@@ -4690,7 +4690,7 @@
       "assignments": {
         "١٣‏/٨‏/٢٠٢٦": {
           "lesson": {
-            "surahIdx": 6,
+            "surahIdx": 7,
             "scope": "all",
             "verseFrom": 1,
             "verseTo": 1
@@ -4711,12 +4711,12 @@
           },
           "reviewRange": {
             "from": "1 - الفاتحة",
-            "to": "4 - النساء"
+            "to": "1 - الفاتحة"
           },
           "note": "ماكس"
         }
       }
     }
   ],
-  "updatedAt": 1786563304511
+  "updatedAt": 1786567894425
 }
