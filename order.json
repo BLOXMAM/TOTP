@@ -1,6 +1,98 @@
 [
   {
     "file": "home.html",
-    "title": "home"
+    "title": "home",
+    "icon": "fa-solid fa-microphone",
+    "hidden": false
+  },
+  {
+    "file": "a.html",
+    "title": "a",
+    "icon": "fa-solid fa-music",
+    "hidden": false
+  },
+  {
+    "file": "al.html",
+    "title": "al",
+    "icon": "fa-solid fa-camera",
+    "hidden": false
+  },
+  {
+    "file": "aw.html",
+    "title": "aw",
+    "icon": "fa-solid fa-pen",
+    "hidden": false
+  },
+  {
+    "file": "b.html",
+    "title": "b",
+    "icon": "fa-solid fa-envelope",
+    "hidden": false
+  },
+  {
+    "file": "cost.html",
+    "title": "cost",
+    "icon": "fa-solid fa-tint",
+    "hidden": false
+  },
+  {
+    "file": "how.html",
+    "title": "how",
+    "icon": "fa-solid fa-atom",
+    "hidden": false
+  },
+  {
+    "file": "k.html",
+    "title": "k",
+    "icon": "fa-solid fa-couch",
+    "hidden": false
+  },
+  {
+    "file": "maci.html",
+    "title": "maci",
+    "icon": "fa-solid fa-money-bill",
+    "hidden": false
+  },
+  {
+    "file": "o.html",
+    "title": "o",
+    "icon": "fa-solid fa-credit-card",
+    "hidden": false
+  },
+  {
+    "file": "qrw.html",
+    "title": "qrw",
+    "icon": "fa-solid fa-wallet",
+    "hidden": false
+  },
+  {
+    "file": "qw.html",
+    "title": "qw",
+    "icon": "fa-solid fa-cog",
+    "hidden": false
+  },
+  {
+    "file": "qwe.html",
+    "title": "qwe",
+    "icon": "fa-solid fa-toolbox",
+    "hidden": false
+  },
+  {
+    "file": "s.html",
+    "title": "s",
+    "icon": "fa-solid fa-shopping-bag",
+    "hidden": false
+  },
+  {
+    "file": "t.html",
+    "title": "t",
+    "icon": "fa-solid fa-star",
+    "hidden": false
+  },
+  {
+    "file": "wo.html",
+    "title": "wo",
+    "icon": "fa-solid fa-heart",
+    "hidden": false
   }
 ]
