@@ -2,7 +2,7 @@
   "accounts": [
     {
       "id": "sacc_1786505826861",
-      "name": "رايد وادي بادي",
+      "name": "رايد وادي باد",
       "password": "aaaa",
       "createdAt": 1786505826861,
       "lastPwdChange": 1786505826861,
@@ -28,5 +28,5 @@
       "firstLoginDone": true
     }
   ],
-  "updatedAt": 1786506156403
+  "updatedAt": 1786506161828
 }
