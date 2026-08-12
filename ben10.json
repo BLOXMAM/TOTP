@@ -1,0 +1,12 @@
+{
+  "name": "قالب Tenmax الاحترافي",
+  "description": "هذا وصف تفصيلي لمميزات قالب tenmax وكيف يعمل على المتجر.",
+  "price": "$25",
+  "date": "2026-08-12",
+  "image": "https://example.com/main-image.png",
+  "gallery": [
+    "https://example.com/img1.png",
+    "https://example.com/img2.png"
+  ],
+  "fonts": "Cairo, Tajawal"
+}
