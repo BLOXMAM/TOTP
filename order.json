@@ -21,13 +21,13 @@
     "file": "al.html",
     "title": "al",
     "icon": "fa-solid fa-camera",
-    "hidden": false
+    "hidden": true
   },
   {
     "file": "aw.html",
     "title": "aw",
     "icon": "fa-solid fa-pen",
-    "hidden": false
+    "hidden": true
   },
   {
     "file": "b.html",
