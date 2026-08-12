@@ -6,6 +6,12 @@
     "hidden": false
   },
   {
+    "file": "wo.html",
+    "title": "wo",
+    "icon": "fa-solid fa-heart",
+    "hidden": false
+  },
+  {
     "file": "a.html",
     "title": "a",
     "icon": "fa-solid fa-music",
@@ -27,78 +33,72 @@
     "file": "b.html",
     "title": "b",
     "icon": "fa-solid fa-envelope",
-    "hidden": false
-  },
-  {
-    "file": "cost.html",
-    "title": "cost",
-    "icon": "fa-solid fa-tint",
-    "hidden": false
-  },
-  {
-    "file": "how.html",
-    "title": "how",
-    "icon": "fa-solid fa-atom",
-    "hidden": false
-  },
-  {
-    "file": "k.html",
-    "title": "k",
-    "icon": "fa-solid fa-couch",
-    "hidden": false
-  },
-  {
-    "file": "maci.html",
-    "title": "maci",
-    "icon": "fa-solid fa-money-bill",
-    "hidden": false
-  },
-  {
-    "file": "o.html",
-    "title": "o",
-    "icon": "fa-solid fa-credit-card",
-    "hidden": false
-  },
-  {
-    "file": "qrw.html",
-    "title": "qrw",
-    "icon": "fa-solid fa-wallet",
-    "hidden": false
-  },
-  {
-    "file": "qw.html",
-    "title": "qw",
-    "icon": "fa-solid fa-cog",
-    "hidden": false
-  },
-  {
-    "file": "qwe.html",
-    "title": "qwe",
-    "icon": "fa-solid fa-toolbox",
-    "hidden": false
-  },
-  {
-    "file": "s.html",
-    "title": "s",
-    "icon": "fa-solid fa-shopping-bag",
-    "hidden": false
-  },
-  {
-    "file": "t.html",
-    "title": "t",
-    "icon": "fa-solid fa-star",
-    "hidden": false
-  },
-  {
-    "file": "wo.html",
-    "title": "wo",
-    "icon": "fa-solid fa-heart",
-    "hidden": false
+    "hidden": true
   },
   {
     "file": "bn.html",
     "title": "bn",
     "icon": "fa-solid fa-search",
-    "hidden": false
+    "hidden": true
+  },
+  {
+    "file": "cost.html",
+    "title": "cost",
+    "icon": "fa-solid fa-tint",
+    "hidden": true
+  },
+  {
+    "file": "how.html",
+    "title": "how",
+    "icon": "fa-solid fa-atom",
+    "hidden": true
+  },
+  {
+    "file": "k.html",
+    "title": "k",
+    "icon": "fa-solid fa-couch",
+    "hidden": true
+  },
+  {
+    "file": "maci.html",
+    "title": "maci",
+    "icon": "fa-solid fa-money-bill",
+    "hidden": true
+  },
+  {
+    "file": "o.html",
+    "title": "o",
+    "icon": "fa-solid fa-credit-card",
+    "hidden": true
+  },
+  {
+    "file": "qrw.html",
+    "title": "qrw",
+    "icon": "fa-solid fa-wallet",
+    "hidden": true
+  },
+  {
+    "file": "qw.html",
+    "title": "qw",
+    "icon": "fa-solid fa-cog",
+    "hidden": true
+  },
+  {
+    "file": "qwe.html",
+    "title": "qwe",
+    "icon": "fa-solid fa-toolbox",
+    "hidden": true
+  },
+  {
+    "file": "s.html",
+    "title": "s",
+    "icon": "fa-solid fa-shopping-bag",
+    "hidden": true
+  },
+  {
+    "file": "t.html",
+    "title": "t",
+    "icon": "fa-solid fa-star",
+    "hidden": true
   }
 ]
