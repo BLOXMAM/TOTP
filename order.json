@@ -12,12 +12,6 @@
     "hidden": false
   },
   {
-    "file": "al.html",
-    "title": "al",
-    "icon": "fa-solid fa-camera",
-    "hidden": false
-  },
-  {
     "file": "b.html",
     "title": "b",
     "icon": "fa-solid fa-envelope",
@@ -28,6 +22,12 @@
     "title": "bn",
     "icon": "fa-solid fa-search",
     "hidden": false
+  },
+  {
+    "file": "al.html",
+    "title": "al",
+    "icon": "fa-solid fa-file",
+    "hidden": true
   },
   {
     "file": "aw.html",
