@@ -18,12 +18,6 @@
     "hidden": false
   },
   {
-    "file": "aw.html",
-    "title": "aw",
-    "icon": "fa-solid fa-pen",
-    "hidden": false
-  },
-  {
     "file": "b.html",
     "title": "b",
     "icon": "fa-solid fa-envelope",
@@ -34,6 +28,12 @@
     "title": "bn",
     "icon": "fa-solid fa-search",
     "hidden": false
+  },
+  {
+    "file": "aw.html",
+    "title": "aw",
+    "icon": "fa-solid fa-file",
+    "hidden": true
   },
   {
     "file": "cost.html",
