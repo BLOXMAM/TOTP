@@ -1,11 +1,5 @@
 [
   {
-    "file": "home.html",
-    "title": "home",
-    "icon": "fa-solid fa-microphone",
-    "hidden": false
-  },
-  {
     "file": "a.html",
     "title": "a",
     "icon": "fa-solid fa-music",
@@ -45,6 +39,12 @@
     "file": "cost.html",
     "title": "cost",
     "icon": "fa-solid fa-tint",
+    "hidden": true
+  },
+  {
+    "file": "home.html",
+    "title": "home",
+    "icon": "fa-solid fa-file",
     "hidden": true
   },
   {
