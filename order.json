@@ -1,21 +1,21 @@
 [
   {
-    "file": "a.html",
-    "title": "a",
-    "icon": "fa-solid fa-music",
-    "hidden": false
-  },
-  {
     "file": "b.html",
     "title": "b",
     "icon": "fa-solid fa-envelope",
     "hidden": false
   },
   {
+    "file": "a.html",
+    "title": "a",
+    "icon": "fa-solid fa-file",
+    "hidden": true
+  },
+  {
     "file": "bn.html",
     "title": "bn",
-    "icon": "fa-solid fa-search",
-    "hidden": false
+    "icon": "fa-solid fa-file",
+    "hidden": true
   },
   {
     "file": "how.html",
