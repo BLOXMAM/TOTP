@@ -1239,8 +1239,7 @@
                 <p id="stuWelcomeMsg" style="font-size:15px; line-height:1.8;"></p>
             </div>
             <div class="dialog-actions" style="justify-content:center;">
-                <button class="btn" onclick="closeDialog('studentWelcomeDialog')"><i class="ph ph-check"></i>  
-يلا نبدأ</button>
+                <button class="btn" onclick="closeDialog('studentWelcomeDialog')"><i class="ph ph-check"></i> يلا نبدأ</button>
             </div>
         </dialog>
 
@@ -3556,7 +3555,8 @@
         }
 
         async function apiGetPathObj(path, fallbackObj) {
-            const apiUrl = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/' + encodeURIComponent(path);
+    await waitForGithubToken();
+    const apiUrl = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/' + encodeURIComponent(path);
             const res = await fetch(apiUrl + '?ref=' + GITHUB_BRANCH, { headers: { Authorization: 'Bearer ' + GITHUB_TOKEN } });
             if (!res.ok) return { obj: JSON.parse(JSON.stringify(fallbackObj)), sha: null };
             const j = await res.json();
@@ -3569,7 +3569,8 @@
         // بسبب تأخر بسيط أحياناً في اتساق GitHub بعد إنشاء ملف حديثاً)، يُعاد جلب أحدث نسخة وتُطبَّق
         // mergeFn عليها ثم تُعاد المحاولة (حتى 3 مرات) بدل الفشل التام أو الكتابة فوق تعديلات الآخرين.
         async function apiWritePathObj(path, obj, sha, message, mergeFn, attempt) {
-            attempt = attempt || 0;
+    attempt = attempt || 0;
+    await waitForGithubToken();
             const apiUrl = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/' + encodeURIComponent(path);
             const contentB64 = btoa(unescape(encodeURIComponent(JSON.stringify(obj, null, 2))));
             const body = { message: message + ' - ' + new Date().toLocaleString('ar-SA'), content: contentB64, branch: GITHUB_BRANCH };
@@ -3593,7 +3594,8 @@
         // الكامل دائماً)، لتفادي رسائل "does not match SHA" المتكررة نهائياً بدل معالجتها جزئياً فقط.
         // تعيد المحاولة حتى maxAttempts مرة بمهلة متزايدة (نتوقع نجاحها خلال ثوانٍ قليلة في العادة).
         async function apiForceOverwritePathObj(path, obj, message, maxAttempts) {
-            maxAttempts = maxAttempts || 6;
+    maxAttempts = maxAttempts || 6;
+    await waitForGithubToken();
             const apiUrl = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/' + encodeURIComponent(path);
             const contentB64 = btoa(unescape(encodeURIComponent(JSON.stringify(obj, null, 2))));
             let lastErr = null;
@@ -4525,6 +4527,18 @@
                 return false;
             }
         }
+
+function waitForGithubToken(maxWaitMs) {
+    maxWaitMs = maxWaitMs || 4000;
+    return new Promise(function (resolve) {
+        const start = Date.now();
+        (function check() {
+            if (GITHUB_TOKEN) return resolve(true);
+            if (Date.now() - start > maxWaitMs) return resolve(false);
+            setTimeout(check, 50);
+        })();
+    });
+}
     </script>
 </body>
 </html>
