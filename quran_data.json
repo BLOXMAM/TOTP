@@ -4783,20 +4783,25 @@
         },
         "١٤‏/٨‏/٢٠٢٦": {
           "lesson": {
-            "surahIdx": 1,
-            "scope": "all",
-            "verseFrom": 1,
-            "verseTo": 1
+            "surahIdx": 5,
+            "scope": "verses",
+            "verseFrom": 5,
+            "verseTo": 43
           },
           "lessonSurah": {
-            "surahIdx": 1,
-            "scope": "all",
-            "verseFrom": 1,
-            "verseTo": 1
-          }
+            "surahIdx": 5,
+            "scope": "verses",
+            "verseFrom": 8,
+            "verseTo": 37
+          },
+          "review1": {
+            "unit": "ahzab",
+            "idx": 7
+          },
+          "note": "تجربة"
         }
       }
     }
   ],
-  "updatedAt": 1786590947421
+  "updatedAt": 1786594633787
 }
