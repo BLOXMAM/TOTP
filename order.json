@@ -2,36 +2,6 @@
   {
     "file": "b.html",
     "title": "b",
-    "icon": "fa-solid fa-envelope",
-    "hidden": false
-  },
-  {
-    "file": "a.html",
-    "title": "a",
-    "icon": "fa-solid fa-file",
-    "hidden": true
-  },
-  {
-    "file": "bn.html",
-    "title": "bn",
-    "icon": "fa-solid fa-file",
-    "hidden": true
-  },
-  {
-    "file": "how.html",
-    "title": "how",
-    "icon": "fa-solid fa-atom",
-    "hidden": true
-  },
-  {
-    "file": "o.html",
-    "title": "o",
-    "icon": "fa-solid fa-credit-card",
-    "hidden": true
-  },
-  {
-    "file": "oow.html",
-    "title": "oow",
     "icon": "fa-solid fa-file",
     "hidden": true
   }
