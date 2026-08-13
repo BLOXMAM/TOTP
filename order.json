@@ -94,17 +94,5 @@
     "title": "qwe",
     "icon": "fa-solid fa-toolbox",
     "hidden": true
-  },
-  {
-    "file": "s.html",
-    "title": "s",
-    "icon": "fa-solid fa-shopping-bag",
-    "hidden": true
-  },
-  {
-    "file": "t.html",
-    "title": "t",
-    "icon": "fa-solid fa-star",
-    "hidden": true
   }
 ]
