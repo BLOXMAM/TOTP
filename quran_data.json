@@ -4786,7 +4786,7 @@
             "surahIdx": 5,
             "scope": "verses",
             "verseFrom": 5,
-            "verseTo": 43
+            "verseTo": 50
           },
           "lessonSurah": {
             "surahIdx": 5,
@@ -4803,5 +4803,5 @@
       }
     }
   ],
-  "updatedAt": 1786594633787
+  "updatedAt": 1786594921374
 }
