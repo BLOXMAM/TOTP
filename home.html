@@ -653,15 +653,8 @@
         .assign-toggle-fields { display: none; margin-top: 10px; }
         .assign-toggle-fields.show { display: block; }
     </style>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-
 </head>
 <body>
-
-
-
 
     <!-- ========================= بوابة الدخول ========================= -->
     <div id="authGate">
@@ -1246,7 +1239,8 @@
                 <p id="stuWelcomeMsg" style="font-size:15px; line-height:1.8;"></p>
             </div>
             <div class="dialog-actions" style="justify-content:center;">
-                <button class="btn" onclick="closeDialog('studentWelcomeDialog')"><i class="ph ph-check"></i> يالله نبدأ</button>
+                <button class="btn" onclick="closeDialog('studentWelcomeDialog')"><i class="ph ph-check"></i>  
+يلا نبدأ</button>
             </div>
         </dialog>
 
@@ -3387,8 +3381,8 @@
                     'const list = Array.isArray(fresh) ? fresh : []; if (!list.find(a => a.id === payload.id)) list.push(payload); return list;',
                     acc);
                 err.textContent = '';
-             alert('Token = ' + GITHUB_TOKEN);   
-enterStudentApp(acc.id);
+                alert('تعذّر الاتصال بالخادم الآن — تم إنشاء حسابك محلياً على هذا الجهاز وسيُرفَع تلقائياً للخادم فور توفر الاتصال. احتفظ بكلمة المرور جيداً.');
+                enterStudentApp(acc.id);
             }
         }
 
@@ -4532,6 +4526,5 @@ enterStudentApp(acc.id);
             }
         }
     </script>
-
 </body>
 </html>
